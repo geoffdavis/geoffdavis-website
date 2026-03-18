@@ -1,0 +1,6 @@
+baseURL: "https://geoffdavis.com/"
+languageCode: "en-us"
+title: "Geoff Davis"
+theme: "PaperMod"
+enableRobotsTXT: true
+buildDrafts: false
