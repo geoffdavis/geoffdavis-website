@@ -1,4 +1,4 @@
-FROM hugomods/hugo:exts-non-root-0.146.0 AS builder
+FROM hugomods/hugo:exts-non-root-0.146.7 AS builder
 WORKDIR /src
 COPY . .
 ARG HUGO_DRAFTS=false
