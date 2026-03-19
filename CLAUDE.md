@@ -5,16 +5,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```sh
-# Local development with live reload and drafts visible
+# Local development with live reload
 hugo server -D
 
 # Create a new post
 hugo new posts/my-post.md
 
-# Production build (no drafts)
+# Production build
 hugo
 
-# Build with drafts (matches dev branch CI behavior)
+# Build matching dev branch CI behavior
 hugo --buildDrafts
 
 # Test the container build locally
@@ -29,13 +29,14 @@ git submodule update --remote themes/PaperMod
 
 Hugo static site → Docker (Nginx) → GHCR → Kubernetes (ARM cluster).
 
-**Content:** `content/posts/` for blog posts, `content/` root for pages (e.g. `cv.md`). Frontmatter uses TOML (delimited by `+++`). New posts default to `draft = true`.
+**Content:** `content/posts/` for blog posts, `content/` root for pages (e.g. `cv.md`). Frontmatter uses TOML (delimited by `+++`). Do not use `draft = true` — the branch is the gate (dev = staging, main = production).
 
 **Theme:** PaperMod is a git submodule at `themes/PaperMod/`. CI checks it out with `submodules: true`. Do not edit theme files directly.
 
 **Build:** Two-stage Dockerfile — `hugomods/hugo:exts-non-root-0.146.7` compiles the site, Nginx Alpine serves it. The `HUGO_DRAFTS` build arg controls `--buildDrafts`.
 
 **CI/CD:** Three GitHub Actions workflows in `.github/workflows/`:
+
 - `lint.yaml` — triggers on pushes to `main`/`dev` and all pull requests; runs markdownlint and Hugo build check
 - `publish.yaml` — triggers on `main`, builds with `HUGO_DRAFTS=false`, tags `main-{TIMESTAMP}-{SHA}`
 - `publish-dev.yaml` — triggers on `dev`, builds with `HUGO_DRAFTS=true`, tags `dev-{TIMESTAMP}-{SHA}`
@@ -44,10 +45,10 @@ Both publish workflows push multi-arch images (`linux/amd64`, `linux/arm64`) to 
 
 ## Branching and Content Promotion
 
-- Feature branches → merge into `dev` (staging, drafts included)
-- `dev` → merge into `main` (production, drafts excluded)
+- Feature branches → merge into `dev` (staging)
+- `dev` → merge into `main` (production)
 
-To promote a post to production: set `draft = false` in its frontmatter, then merge `dev` into `main`. The CI lint and build checks are the only gates.
+To promote a post to production: merge `dev` into `main`. The CI lint and build checks are the only gates — no `draft` flag needed.
 
 ## Pre-commit Hooks
 
@@ -59,6 +60,7 @@ pre-commit install
 ```
 
 Hooks run automatically on `git commit`:
+
 - **Hugo build check** — builds with `--buildDrafts`, fails if the site doesn't compile
 - **markdownlint** — lints `content/` files (config in `.markdownlint.yaml`)
 

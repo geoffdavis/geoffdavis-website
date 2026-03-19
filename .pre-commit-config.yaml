@@ -3,7 +3,7 @@ repos:
     rev: v0.44.0
     hooks:
       - id: markdownlint
-        files: ^content/
+        files: ^content/.*\.md$
         args: ["--config", ".markdownlint.yaml"]
 
   - repo: local

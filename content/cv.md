@@ -71,9 +71,9 @@ detection cameras spanning 40+ infrastructure providers.
 - Architected camera exchange network with comprehensive monitoring and security
   visibility
 - Built redundant datacenter architecture with automated failover between sites
-- Established IPSec/BGP interconnects between AWS, Azure, and on-premise
+- Established IPSec/BGP interconnects between AWS, Azure, and on-premises
   infrastructure
-- Implemented Netbox DCIM for infrastructure visibility and automated
+- Implemented NetBox DCIM for infrastructure visibility and automated
   provisioning
 
 #### USArray Transportable Array / Array Network Facility (EarthScope)
@@ -96,7 +96,7 @@ return rate.
 
 *Computing Systems Lead*
 
-Eliminated configuration drift across global sensor deployments using Cfengine.
+Eliminated configuration drift across global sensor deployments using CFEngine.
 Built automated provisioning pipeline for partner organizations.
 
 #### Shipboard Computing / HiSeasNet
@@ -133,11 +133,11 @@ Developed monitoring and alerting systems for proactive issue detection.
 
 ## Technical Skills
 
-**Networking:** BGP, OSPF, MPLS, EVPN, EIGRP; Cisco, Arista, Mikrotik,
+**Networking:** BGP, OSPF, MPLS, EVPN, EIGRP; Cisco, Arista, MikroTik,
 Ubiquiti
 
 **Automation & IaC:** Puppet (15 years), Ansible, Terraform/Terragrunt, Nornir,
-Python, Cfengine; 21+ years of Infrastructure as Code experience
+Python, CFEngine; 21+ years of Infrastructure as Code experience
 
 **Cloud:** AWS (broad), Azure (interconnection-focused)
 
@@ -146,7 +146,7 @@ VMware, Sun Cluster
 
 **Storage:** ZFS, SAM-QFS, SAN, Ceph
 
-**Observability:** Netbox IPAM/DCIM, LibreNMS, Nagios, Intermapper
+**Observability:** NetBox IPAM/DCIM, LibreNMS, Nagios, Intermapper
 
 **AI-Augmented DevOps:** Claude, KiloCode — actively used for infrastructure
 code refactoring, architecture planning, and migration strategies

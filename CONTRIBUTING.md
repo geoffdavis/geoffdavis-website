@@ -31,7 +31,7 @@ Guide for contributing to the geoffdavis.com website.
 
 - Blog posts go in `content/posts/`. Create new posts with `hugo new posts/my-post.md`.
 - Top-level pages go in `content/` (e.g., `content/cv.md`).
-- New posts are created as drafts by default. Set `draft = false` in the frontmatter when ready.
+- New posts do not need a `draft` flag — the branch is the gate. Posts on `dev` are staging; posts on `main` are production.
 
 ### Configuration Changes
 
@@ -83,11 +83,9 @@ Guide for contributing to the geoffdavis.com website.
 
 ## Promoting Content to Production
 
-Content moves from `dev` to `main` in two steps:
+Content moves from `dev` to `main` in one step:
 
-1. **Set `draft = false`** in the frontmatter of any posts that are ready for production. Posts with `draft = true` are included in dev builds but excluded from production builds. You can flip the draft flag before or as part of the merge to `main`.
-
-2. **Merge `dev` into `main`**:
+1. **Merge `dev` into `main`**:
 
    ```sh
    git checkout main
@@ -96,24 +94,24 @@ Content moves from `dev` to `main` in two steps:
    git push origin main
    ```
 
-This triggers the production CI workflow, which builds a Docker image with `HUGO_DRAFTS=false` — meaning only posts with `draft = false` appear in the final site.
+This triggers the production CI workflow, which builds a Docker image without `--buildDrafts` — all content in `main` appears in the final site.
 
 There is no additional approval gate or manual deployment step. The GitHub Actions workflow fires automatically on push to `main`, and the resulting image is published to GHCR ready for deployment.
 
 ### Summary
 
-```
-feature branch ──► dev (drafts included) ──► main (drafts excluded)
-                     │                          │
-                     ▼                          ▼
-               dev build in GHCR          production build in GHCR
+```text
+feature branch ──► dev (staging) ──► main (production)
+                     │                     │
+                     ▼                     ▼
+               dev build in GHCR    production build in GHCR
 ```
 
-The `draft` frontmatter field is the gate that controls what is visible in production. The branch merge is what triggers the build.
+The branch merge is the gate and the trigger. No `draft` frontmatter flag is needed.
 
 ## CI/CD
 
-Pushes to `dev` and `main` trigger GitHub Actions workflows that build and push Docker images to GHCR. The `dev` branch includes draft posts; `main` does not.
+Pushes to `dev` and `main` trigger GitHub Actions workflows that build and push Docker images to GHCR. All content merged to `dev` appears in the staging build; all content merged to `main` appears in production.
 
 Check the Actions tab on GitHub to verify your build succeeded after pushing.
 
