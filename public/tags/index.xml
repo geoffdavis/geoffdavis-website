@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Tags on Geoff Davis</title>
+    <link>https://geoffdavis.com/tags/</link>
+    <description>Recent content in Tags on Geoff Davis</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 23 Mar 2026 00:00:00 -0700</lastBuildDate>
+    <atom:link href="https://geoffdavis.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Homelab</title>
+      <link>https://geoffdavis.com/tags/homelab/</link>
+      <pubDate>Mon, 23 Mar 2026 00:00:00 -0700</pubDate>
+      <guid>https://geoffdavis.com/tags/homelab/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Kernel</title>
+      <link>https://geoffdavis.com/tags/kernel/</link>
+      <pubDate>Mon, 23 Mar 2026 00:00:00 -0700</pubDate>
+      <guid>https://geoffdavis.com/tags/kernel/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Kubernetes</title>
+      <link>https://geoffdavis.com/tags/kubernetes/</link>
+      <pubDate>Mon, 23 Mar 2026 00:00:00 -0700</pubDate>
+      <guid>https://geoffdavis.com/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Linux</title>
+      <link>https://geoffdavis.com/tags/linux/</link>
+      <pubDate>Mon, 23 Mar 2026 00:00:00 -0700</pubDate>
+      <guid>https://geoffdavis.com/tags/linux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Longhorn</title>
+      <link>https://geoffdavis.com/tags/longhorn/</link>
+      <pubDate>Mon, 23 Mar 2026 00:00:00 -0700</pubDate>
+      <guid>https://geoffdavis.com/tags/longhorn/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Networking</title>
+      <link>https://geoffdavis.com/tags/networking/</link>
+      <pubDate>Mon, 23 Mar 2026 00:00:00 -0700</pubDate>
+      <guid>https://geoffdavis.com/tags/networking/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Raspberry-Pi</title>
+      <link>https://geoffdavis.com/tags/raspberry-pi/</link>
+      <pubDate>Mon, 23 Mar 2026 00:00:00 -0700</pubDate>
+      <guid>https://geoffdavis.com/tags/raspberry-pi/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Talos</title>
+      <link>https://geoffdavis.com/tags/talos/</link>
+      <pubDate>Mon, 23 Mar 2026 00:00:00 -0700</pubDate>
+      <guid>https://geoffdavis.com/tags/talos/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Alertcalifornia</title>
+      <link>https://geoffdavis.com/tags/alertcalifornia/</link>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 -0800</pubDate>
+      <guid>https://geoffdavis.com/tags/alertcalifornia/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Career</title>
+      <link>https://geoffdavis.com/tags/career/</link>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 -0800</pubDate>
+      <guid>https://geoffdavis.com/tags/career/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Devops</title>
+      <link>https://geoffdavis.com/tags/devops/</link>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 -0800</pubDate>
+      <guid>https://geoffdavis.com/tags/devops/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Hpwren</title>
+      <link>https://geoffdavis.com/tags/hpwren/</link>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 -0800</pubDate>
+      <guid>https://geoffdavis.com/tags/hpwren/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Infrastructure</title>
+      <link>https://geoffdavis.com/tags/infrastructure/</link>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 -0800</pubDate>
+      <guid>https://geoffdavis.com/tags/infrastructure/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Scripps</title>
+      <link>https://geoffdavis.com/tags/scripps/</link>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 -0800</pubDate>
+      <guid>https://geoffdavis.com/tags/scripps/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Antelope</title>
+      <link>https://geoffdavis.com/tags/antelope/</link>
+      <pubDate>Mon, 11 Aug 2014 12:37:34 -0700</pubDate>
+      <guid>https://geoffdavis.com/tags/antelope/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Python</title>
+      <link>https://geoffdavis.com/tags/python/</link>
+      <pubDate>Mon, 11 Aug 2014 12:37:34 -0700</pubDate>
+      <guid>https://geoffdavis.com/tags/python/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Seismology</title>
+      <link>https://geoffdavis.com/tags/seismology/</link>
+      <pubDate>Mon, 11 Aug 2014 12:37:34 -0700</pubDate>
+      <guid>https://geoffdavis.com/tags/seismology/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Sysadmin</title>
+      <link>https://geoffdavis.com/tags/sysadmin/</link>
+      <pubDate>Mon, 11 Aug 2014 12:37:34 -0700</pubDate>
+      <guid>https://geoffdavis.com/tags/sysadmin/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

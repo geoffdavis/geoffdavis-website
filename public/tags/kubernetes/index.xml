@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Kubernetes on Geoff Davis</title>
+    <link>https://geoffdavis.com/tags/kubernetes/</link>
+    <description>Recent content in Kubernetes on Geoff Davis</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 23 Mar 2026 00:00:00 -0700</lastBuildDate>
+    <atom:link href="https://geoffdavis.com/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Silent Network Death on Raspberry Pi 5: Diagnosing and Fixing AutogrEEEn</title>
+      <link>https://geoffdavis.com/posts/rpi5-eee-silent-network-death/</link>
+      <pubDate>Mon, 23 Mar 2026 00:00:00 -0700</pubDate>
+      <guid>https://geoffdavis.com/posts/rpi5-eee-silent-network-death/</guid>
+      <description>The RPi5 BCM54213PE PHY silently enters EEE Low Power Idle without telling the macb MAC driver, causing complete network blackouts every few minutes. Here is how to confirm it, mitigate it, and fix it with a custom kernel.</description>
+    </item>
+  </channel>
+</rss>

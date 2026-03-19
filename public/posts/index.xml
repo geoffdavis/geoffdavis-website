@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Posts on Geoff Davis</title>
+    <link>https://geoffdavis.com/posts/</link>
+    <description>Recent content in Posts on Geoff Davis</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 23 Mar 2026 00:00:00 -0700</lastBuildDate>
+    <atom:link href="https://geoffdavis.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Silent Network Death on Raspberry Pi 5: Diagnosing and Fixing AutogrEEEn</title>
+      <link>https://geoffdavis.com/posts/rpi5-eee-silent-network-death/</link>
+      <pubDate>Mon, 23 Mar 2026 00:00:00 -0700</pubDate>
+      <guid>https://geoffdavis.com/posts/rpi5-eee-silent-network-death/</guid>
+      <description>The RPi5 BCM54213PE PHY silently enters EEE Low Power Idle without telling the macb MAC driver, causing complete network blackouts every few minutes. Here is how to confirm it, mitigate it, and fix it with a custom kernel.</description>
+    </item>
+    <item>
+      <title>Hello World</title>
+      <link>https://geoffdavis.com/posts/hello-world/</link>
+      <pubDate>Wed, 18 Mar 2026 12:21:44 -0700</pubDate>
+      <guid>https://geoffdavis.com/posts/hello-world/</guid>
+      <description>&lt;p&gt;Hello, world! This is the first post on my personal website.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Moving On: 23 Years at Scripps Institution of Oceanography</title>
+      <link>https://geoffdavis.com/posts/moving-on-23-years-at-scripps/</link>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 -0800</pubDate>
+      <guid>https://geoffdavis.com/posts/moving-on-23-years-at-scripps/</guid>
+      <description>Reflections on 23 years at UC San Diego Scripps Institution of Oceanography, from shipboard computing to wildfire detection infrastructure.</description>
+    </item>
+    <item>
+      <title>Installing Obspy for Antelope 5.4 on RHEL/CentOS 6</title>
+      <link>https://geoffdavis.com/posts/installing-obspy-for-antelope-on-rhel-centos-6/</link>
+      <pubDate>Mon, 11 Aug 2014 12:37:34 -0700</pubDate>
+      <guid>https://geoffdavis.com/posts/installing-obspy-for-antelope-on-rhel-centos-6/</guid>
+      <description>&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
+&lt;p&gt;The &lt;a href=&#34;http://obspy.org&#34;&gt;obspy framework&lt;/a&gt; is a set of Python libraries for observational seismology. It includes a number of routines to retrieve and process seismic data in a variety of formats.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://brtt.com&#34;&gt;Antelope&lt;/a&gt; is a commercial data acquisition and processing system for environmental data, with a heavy emphasis on seismic data. Many regional seismic networks use Antelope to acquire, process, and exchange seismic data. Starting with version 5.2, it has included Python bindings for many of it&amp;rsquo;s core routines for databases and real-time data.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

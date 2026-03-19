@@ -65,7 +65,11 @@ docker build --build-arg HUGO_DRAFTS=true -t geoffdavis-website:drafts .
 | `main` | Production | No |
 | `dev` | Staging / preview | Yes |
 
+<<<<<<< HEAD
 Feature branches are merged into `dev` for preview, then into `main` for production. The `draft` frontmatter field controls visibility: posts with `draft = true` appear in dev builds but are excluded from production. See [CONTRIBUTING.md](CONTRIBUTING.md#promoting-content-to-production) for the full promotion workflow.
+=======
+Feature branches are merged into `dev` for preview, then into `main` for production.
+>>>>>>> b663601 (docs: add README and CONTRIBUTING guide)
 
 ## CI/CD
 

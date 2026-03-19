@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Installing Obspy for Antelope 5.4 on RHEL/CentOS 6 | Geoff Davis</title>
+<meta name="keywords" content="antelope, linux, sysadmin, python, seismology">
+<meta name="description" content="Background
+The obspy framework is a set of Python libraries for observational seismology. It includes a number of routines to retrieve and process seismic data in a variety of formats.
+Antelope is a commercial data acquisition and processing system for environmental data, with a heavy emphasis on seismic data. Many regional seismic networks use Antelope to acquire, process, and exchange seismic data. Starting with version 5.2, it has included Python bindings for many of it&rsquo;s core routines for databases and real-time data.">
+<meta name="author" content="">
+<link rel="canonical" href="https://geoffdavis.com/posts/installing-obspy-for-antelope-on-rhel-centos-6/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://geoffdavis.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://geoffdavis.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://geoffdavis.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://geoffdavis.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://geoffdavis.com/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://geoffdavis.com/posts/installing-obspy-for-antelope-on-rhel-centos-6/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://geoffdavis.com/posts/installing-obspy-for-antelope-on-rhel-centos-6/">
+  <meta property="og:site_name" content="Geoff Davis">
+  <meta property="og:title" content="Installing Obspy for Antelope 5.4 on RHEL/CentOS 6">
+  <meta property="og:description" content="Background The obspy framework is a set of Python libraries for observational seismology. It includes a number of routines to retrieve and process seismic data in a variety of formats.
+Antelope is a commercial data acquisition and processing system for environmental data, with a heavy emphasis on seismic data. Many regional seismic networks use Antelope to acquire, process, and exchange seismic data. Starting with version 5.2, it has included Python bindings for many of it’s core routines for databases and real-time data.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2014-08-11T12:37:34-07:00">
+    <meta property="article:modified_time" content="2014-08-11T12:37:34-07:00">
+    <meta property="article:tag" content="Antelope">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Sysadmin">
+    <meta property="article:tag" content="Python">
+    <meta property="article:tag" content="Seismology">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Installing Obspy for Antelope 5.4 on RHEL/CentOS 6">
+  <meta name="twitter:description" content="Background The obspy framework is a set of Python libraries for observational seismology. It includes a number of routines to retrieve and process seismic data in a variety of formats.
+Antelope is a commercial data acquisition and processing system for environmental data, with a heavy emphasis on seismic data. Many regional seismic networks use Antelope to acquire, process, and exchange seismic data. Starting with version 5.2, it has included Python bindings for many of it’s core routines for databases and real-time data.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://geoffdavis.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Installing Obspy for Antelope 5.4 on RHEL/CentOS 6",
+      "item": "https://geoffdavis.com/posts/installing-obspy-for-antelope-on-rhel-centos-6/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Installing Obspy for Antelope 5.4 on RHEL/CentOS 6",
+  "name": "Installing Obspy for Antelope 5.4 on RHEL\/CentOS 6",
+  "description": "Background The obspy framework is a set of Python libraries for observational seismology. It includes a number of routines to retrieve and process seismic data in a variety of formats.\nAntelope is a commercial data acquisition and processing system for environmental data, with a heavy emphasis on seismic data. Many regional seismic networks use Antelope to acquire, process, and exchange seismic data. Starting with version 5.2, it has included Python bindings for many of it\u0026rsquo;s core routines for databases and real-time data.\n",
+  "keywords": [
+    "antelope", "linux", "sysadmin", "python", "seismology"
+  ],
+  "articleBody": "Background The obspy framework is a set of Python libraries for observational seismology. It includes a number of routines to retrieve and process seismic data in a variety of formats.\nAntelope is a commercial data acquisition and processing system for environmental data, with a heavy emphasis on seismic data. Many regional seismic networks use Antelope to acquire, process, and exchange seismic data. Starting with version 5.2, it has included Python bindings for many of it’s core routines for databases and real-time data.\nThe Obspy framework combined with Antelope represents a best-of-breed combination of interoperability with other seismic data formats and rapid application development. However, due to possible licensing restrictions, BRTT does not currently distribute Obspy.\nBRTT ships their own distribution of Python with Antelope, so just installing the system packages for scipy and numpy included with RHEL is not an acceptable solution. You would not get access to the Antelope routines from Obspy installed in this fashion.\nObspy has a number of dependencies, some of which conflict with libraries shipped with Antelope. In particular, the Numpy is not configured with some required external dependencies such as BLAS and LAPACK that Scipy (another Obspy dependency) requires.\nThus, there are two ways to go about working around this issue:\nInstall a newer version of Numpy or overwrite the existing numpy library in the /opt/antelope/python2.7.6/site-packages directly Install into a different site-packages directory outside of the BRTT-supplied directories. The first approach, putting all of the new packages including this upgraded numpy module in the BRTT site-packages directory, introduces the possibility of compatibility issues with BRTT-supplied code (such as orbrtd) that may depend on their version of numpy (1.7.1). In practice there haven’t been any reported compatibility problems, but it’s best to not step on BRTT’s supported version of the software any more than you have to.\nThe second approach requires a bit more work on your end, but it ensures that BRTT-written programs will not have compatibility issues with any upgraded libraries.\nMy facility uses the second approach, but it’s tied to our own /opt/anf overlay to /opt/antelope. If you are sharing code with a number of users at a site, setting up an overlay tree for Antelope is a really good way to keep your code in revision control and provide it to all users on your system without modifying the BRTT /opt/antelope tree extensively. See the utility build_sourcetree in the Antelope contributed software repository on how to get off the ground with your own overlay.\nFor the purposes of this installation, I will assume that your site does not have a build_sourcetree-style overlay, and that you want obspy to be available to all users on your system. Thus, we will choose the directory /opt/antelope/local/lib/python2.7 as a place to install the obspy packages, and the binaries will go in /opt/antelope/local/bin.\nPrerequisites A working installation of Antelope 5.4 or later … on a RHEL or CentOS 6 OS … with the development tools installed (yum -y groupinstall \"Development tools\") Your shell environment must be set up with the Antelope environment - For Bourne-style shells, run source /opt/antelope/5.4/setup.sh The instructions below assume you are using Bash or another Bourne-compatible shell. There’s no reason this wouldn’t work in CSH, but you’ll need to translate any environment variable commands to their Csh-equivalent yourself.\nInstallation Step 0: Verify your Antelope environment is set up correctly Run this command:\n[[ -z \"$ANTELOPE\" ]] \u0026\u0026 echo \"ANTELOPE ENVIRONMENT IS NOT SET CORRECTLY\" || echo Antelope is OK If that doesn’t come back with “Antelope is OK”, you need to source the Antelope environment\nNow, run this command:\nwhich easy_install | grep antelope || echo \"You're not using the right easy_install\" If that complains that you’re not using the right easy_install, your path may be messed up. Make sure that the Antelope Python path comes before any other PATH statements.\nStep 1: Install system library dependencies yum install -y lapack-devel blas-devel Step 2: Create your local Python package tree and add it to your PYTHONPATH temporarily pymoddir=/opt/antelope/local/lib/python$(getid python_mainversion) bindir=/opt/antelope/local/bin export PYTHONPATH=$pymoddir mkdir -p $pymoddir mkdir -p $bindir export EASY_INSTALL_ARGS=\"-d $pymoddir -s $bindir -N\" unset pymodir unset bindir There’s a couple of things going on in that blob of shell commands that are worth noting. First is the usage of the Antelope command getid. This program allows you to get a bunch of configuration information from Antelope, including the Python version in use. Run the command getid -a for a list of all of the information that getid can report.\nNote that we could have also gotten the python major and minor version (python_mainversion above) by running a python one-liner: python -c 'import sys; sys.version[:3]'\nSecondly, the EASY_INSTALL_ARGS variable is being set just to save us some typing in later commands.\nFinally, unless we set PYTHON_PATH temporarily, easy_install will complain that the directory we are trying to install modules into is not part of the Python search path and will refuse to run.\nStep 3: Install numpy The latest version of numpy as of this writing (1.8.0) has a bug with it’s f2py code that prevents Scipy from working properly. Use 1.7.2 instead.\nIf all goes right, the numpy installer will find BLAS and LAPACK and link against them. You can safely ignore any warnings about Atlas, unless you feel that you will need the Atlas routines.\neasy_install ${EASY_INSTALL_ARGS} numpy==1.7.2 Step 4: Install scipy Scipy’s installer bugs out if you don’t explicitly set the CC and CXX variables.\nCC=/usr/bin/gcc CXX=/usr/bin/g++ easy_install ${EASY_INSTALL_ARGS} scipy Step 5: Install a couple of other dependencies You’ll also need lxml, suds, and sqlalchemy.\neasy_install ${EASY_INSTALL_ARGS} lxml easy_install ${EASY_INSTALL_ARGS} suds easy_install ${EASY_INSTALL_ARGS} sqlalchemy Step 6: Install obspy itself easy_install ${EASY_INSTALL_ARGS} obspy Usage In order to actually use the obspy libraries in code, you’ll need to remember to include the /opt/antelope/local tree in your Python search path. There are a couple of ways to make this work. The best way (which ensures that nothing weird will happen with core BRTT programs) is to explicitly modify the python search path in your code itself.\nIf you set your PYTHONPATH to /opt/antelope/local/lib/python2.7, things will probably work but you run the risk of odd behavior with core Antelope programs.\nThus, it’s recommended that each program is prefixed with a line like\nimport site; import sys; site.addsitedir('/opt/antelope/local/lib/python' + sys.version[:3]) It’s important to use site.addsitedir instead of sys.path.append because the latter doesn’t evaluate easy_install.pth, and thus Python won’t see any of the new modules you installed.\nIn iPython or as a standalone script A full pasteable blurb that should get iPython ready to use Obspy and Antelope looks like this:\nimport os import sys import site import signal signal.signal(signal.SIGINT, signal.SIG_DFL) sys.path.append(os.environ['ANTELOPE'] + \"/data/python\") site.addsitedir('/opt/antelope/local/lib/python' + sys.version[:3]) As an .xpy file If you use the ANTELOPEMAKE structure to build Antelope programs, there is a file type called .xpy that will configure your script with a preamble similar to the iPython blurb above, except it does not include the last line.\nEvery xpy file that makes use of the obspy code will need the following line pre-pended to the file before any obspy module imports are made (note that the standard xpy header already imports os and sys for you):\nsite.addsitedir('/opt/antelope/local/lib/python' + sys.version[:3]) The following example.xpy will get “compiled” into a script named example:\nsite.addsitedir('/opt/antelope/local/lib/python' + sys.version[:3]) import numpy as np import matplotlib.pyplot as plt from obspy.core import UTCDateTime from obspy.arclink import Client from obspy.signal import cornFreq2Paz, seisSim client = Client(user='test@obspy.de') t = UTCDateTime('2009-08-24 00:20:03') st = client.getWaveform('BW', 'RJOB', '', 'EHZ', t, t + 30) pas = client.getPAZ('BW', 'RJOB', '', 'EHZ', t) # 1Hz instrument one_hertz = cornFreq2Paz(1.0) # Correct for frequency response of the instrument res = res / paz['sensitivity'] # Plot the seismograms sec = np.arange(len(res)) / st[0].stats.sampling_rate plt.subplot(211) plt.plot(sec, st[0].data, 'k') plt.title(\"%s %s\" % (st[0].stats.station, t)) plt.ylabel('STS-2') plt.subplot(212) plt.plot(sec, res, 'k') plt.xlabel('Time [s]') plt.ylabel('1Hz CornerFrequency') plt.show() ",
+  "wordCount" : "1303",
+  "inLanguage": "en",
+  "datePublished": "2014-08-11T12:37:34-07:00",
+  "dateModified": "2014-08-11T12:37:34-07:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://geoffdavis.com/posts/installing-obspy-for-antelope-on-rhel-centos-6/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Geoff Davis",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://geoffdavis.com/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://geoffdavis.com/" accesskey="h" title="Geoff Davis (Alt + H)">Geoff Davis</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://geoffdavis.com/cv/" title="CV">
+                    <span>CV</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://geoffdavis.com/posts/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Installing Obspy for Antelope 5.4 on RHEL/CentOS 6
+    </h1>
+    <div class="post-meta"><span title='2014-08-11 12:37:34 -0700 PDT'>August 11, 2014</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h2 id="background">Background<a hidden class="anchor" aria-hidden="true" href="#background">#</a></h2>
+<p>The <a href="http://obspy.org">obspy framework</a> is a set of Python libraries for observational seismology. It includes a number of routines to retrieve and process seismic data in a variety of formats.</p>
+<p><a href="http://brtt.com">Antelope</a> is a commercial data acquisition and processing system for environmental data, with a heavy emphasis on seismic data. Many regional seismic networks use Antelope to acquire, process, and exchange seismic data. Starting with version 5.2, it has included Python bindings for many of it&rsquo;s core routines for databases and real-time data.</p>
+<p>The Obspy framework combined with Antelope represents a best-of-breed combination of interoperability with other seismic data formats and rapid application development. However, due to possible licensing restrictions, BRTT does not currently distribute Obspy.</p>
+<p>BRTT ships their own distribution of Python with Antelope, so just installing the system packages for <code>scipy</code> and <code>numpy</code> included with RHEL is not an acceptable solution. You would not get access to the Antelope routines from Obspy installed in this fashion.</p>
+<p>Obspy has a number of dependencies, some of which conflict with libraries shipped with Antelope. In particular, the Numpy is not configured with some required external dependencies such as <code>BLAS</code> and <code>LAPACK</code> that <code>Scipy</code> (another <code>Obspy</code> dependency) requires.</p>
+<p>Thus, there are two ways to go about working around this issue:</p>
+<ul>
+<li>Install a newer version of Numpy or overwrite the existing numpy library in the <code>/opt/antelope/python2.7.6/site-packages</code> directly</li>
+<li>Install into a different <code>site-packages</code> directory outside of the BRTT-supplied directories.</li>
+</ul>
+<p>The first approach, putting all of the new packages including this upgraded <code>numpy</code> module in the BRTT <code>site-packages</code> directory, introduces the possibility of compatibility issues with BRTT-supplied code (such as <code>orbrtd</code>) that may depend on their version of <code>numpy</code> (1.7.1). In practice there haven&rsquo;t been any reported compatibility problems, but it&rsquo;s best to not step on BRTT&rsquo;s supported version of the software any more than you have to.</p>
+<p>The second approach requires a bit more work on your end, but it ensures that BRTT-written programs will not have compatibility issues with any upgraded libraries.</p>
+<p>My facility uses the second approach, but it&rsquo;s tied to our own <code>/opt/anf</code> overlay to <code>/opt/antelope</code>. If you are sharing code with a number of users at a site, setting up an overlay tree for Antelope is a really good way to keep your code in revision control and provide it to all users on your system without modifying the BRTT <code>/opt/antelope</code> tree extensively. See the utility <code>build_sourcetree</code> in the <a href="https://github.com/antelopeusersgroup/antelope_contrib">Antelope contributed software repository</a> on how to get off the ground with your own overlay.</p>
+<p>For the purposes of this installation, I will assume that your site does not have a <code>build_sourcetree</code>-style overlay, and that you want obspy to be available to all users on your system. Thus, we will choose the directory <code>/opt/antelope/local/lib/python2.7</code> as a place to install the obspy packages, and the binaries will go in <code>/opt/antelope/local/bin</code>.</p>
+<h2 id="prerequisites">Prerequisites<a hidden class="anchor" aria-hidden="true" href="#prerequisites">#</a></h2>
+<ol>
+<li>A working installation of Antelope 5.4 or later</li>
+<li>&hellip; on a RHEL or CentOS 6 OS</li>
+<li>&hellip; with the development tools installed (<code>yum -y groupinstall &quot;Development tools&quot;</code>)</li>
+<li>Your shell environment must be set up with the Antelope environment - For Bourne-style shells, run <code>source /opt/antelope/5.4/setup.sh</code></li>
+</ol>
+<p>The instructions below assume you are using Bash or another Bourne-compatible shell. There&rsquo;s no reason this wouldn&rsquo;t work in CSH, but you&rsquo;ll need to translate any environment variable commands to their Csh-equivalent yourself.</p>
+<h2 id="installation">Installation<a hidden class="anchor" aria-hidden="true" href="#installation">#</a></h2>
+<h2 id="step-0-verify-your-antelope-environment-is-set-up-correctly">Step 0: Verify your Antelope environment is set up correctly<a hidden class="anchor" aria-hidden="true" href="#step-0-verify-your-antelope-environment-is-set-up-correctly">#</a></h2>
+<p>Run this command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[[</span> -z <span style="color:#e6db74">&#34;</span>$ANTELOPE<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]]</span> <span style="color:#f92672">&amp;&amp;</span> echo <span style="color:#e6db74">&#34;ANTELOPE ENVIRONMENT IS NOT SET CORRECTLY&#34;</span> <span style="color:#f92672">||</span> echo Antelope is OK
+</span></span></code></pre></div><p>If that doesn&rsquo;t come back with &ldquo;Antelope is OK&rdquo;, you need to source the Antelope environment</p>
+<p>Now, run this command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>which easy_install | grep antelope <span style="color:#f92672">||</span> echo <span style="color:#e6db74">&#34;You&#39;re not using the right easy_install&#34;</span>
+</span></span></code></pre></div><p>If that complains that you&rsquo;re not using the right <code>easy_install</code>, your path may be messed up. <em>Make sure that the Antelope Python path comes before any other <code>PATH</code> statements.</em></p>
+<h2 id="step-1-install-system-library-dependencies">Step 1: Install system library dependencies<a hidden class="anchor" aria-hidden="true" href="#step-1-install-system-library-dependencies">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>yum install -y lapack-devel blas-devel
+</span></span></code></pre></div><h2 id="step-2-create-your-local-python-package-tree-and-add-it-to-your-pythonpath-temporarily">Step 2: Create your local Python package tree and add it to your PYTHONPATH temporarily<a hidden class="anchor" aria-hidden="true" href="#step-2-create-your-local-python-package-tree-and-add-it-to-your-pythonpath-temporarily">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pymoddir<span style="color:#f92672">=</span>/opt/antelope/local/lib/python<span style="color:#66d9ef">$(</span>getid python_mainversion<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>bindir<span style="color:#f92672">=</span>/opt/antelope/local/bin
+</span></span><span style="display:flex;"><span>export PYTHONPATH<span style="color:#f92672">=</span>$pymoddir
+</span></span><span style="display:flex;"><span>mkdir -p $pymoddir
+</span></span><span style="display:flex;"><span>mkdir -p $bindir
+</span></span><span style="display:flex;"><span>export EASY_INSTALL_ARGS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-d </span>$pymoddir<span style="color:#e6db74"> -s </span>$bindir<span style="color:#e6db74"> -N&#34;</span>
+</span></span><span style="display:flex;"><span>unset pymodir
+</span></span><span style="display:flex;"><span>unset bindir
+</span></span></code></pre></div><p>There&rsquo;s a couple of things going on in that blob of shell commands that are worth noting. First is the usage of the Antelope command <code>getid</code>. This program allows you to get a bunch of configuration information from Antelope, including the Python version in use. Run the command <code>getid -a</code> for a list of all of the information that <code>getid</code> can report.</p>
+<p>Note that we could have also gotten the python major and minor version (python_mainversion above) by running a python one-liner: <code>python -c 'import sys; sys.version[:3]'</code></p>
+<p>Secondly, the <code>EASY_INSTALL_ARGS</code> variable is being set just to save us some typing in later commands.</p>
+<p>Finally, unless we set <code>PYTHON_PATH</code> temporarily, <code>easy_install</code> will complain that the directory we are trying to install modules into is not part of the Python search path and will refuse to run.</p>
+<h2 id="step-3-install-numpy">Step 3: Install numpy<a hidden class="anchor" aria-hidden="true" href="#step-3-install-numpy">#</a></h2>
+<p>The latest version of <code>numpy</code> as of this writing (<em>1.8.0</em>) has a bug with it&rsquo;s <code>f2py</code> code that prevents Scipy from working properly. <strong>Use <em>1.7.2</em> instead.</strong></p>
+<p>If all goes right, the numpy installer will find <code>BLAS</code> and <code>LAPACK</code> and link against them. You can safely ignore any warnings about <a href="http://math-atlas.sourceforge.net/">Atlas</a>, unless you feel that you will need the <em>Atlas</em> routines.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>easy_install <span style="color:#e6db74">${</span>EASY_INSTALL_ARGS<span style="color:#e6db74">}</span> numpy<span style="color:#f92672">==</span>1.7.2
+</span></span></code></pre></div><h2 id="step-4-install-scipy">Step 4: Install scipy<a hidden class="anchor" aria-hidden="true" href="#step-4-install-scipy">#</a></h2>
+<p>Scipy&rsquo;s installer bugs out if you don&rsquo;t explicitly set the <code>CC</code> and <code>CXX</code> variables.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>CC<span style="color:#f92672">=</span>/usr/bin/gcc CXX<span style="color:#f92672">=</span>/usr/bin/g++ easy_install <span style="color:#e6db74">${</span>EASY_INSTALL_ARGS<span style="color:#e6db74">}</span> scipy
+</span></span></code></pre></div><h2 id="step-5-install-a-couple-of-other-dependencies">Step 5: Install a couple of other dependencies<a hidden class="anchor" aria-hidden="true" href="#step-5-install-a-couple-of-other-dependencies">#</a></h2>
+<p>You&rsquo;ll also need <code>lxml</code>, <code>suds</code>, and <code>sqlalchemy</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>easy_install <span style="color:#e6db74">${</span>EASY_INSTALL_ARGS<span style="color:#e6db74">}</span> lxml
+</span></span><span style="display:flex;"><span>easy_install <span style="color:#e6db74">${</span>EASY_INSTALL_ARGS<span style="color:#e6db74">}</span> suds
+</span></span><span style="display:flex;"><span>easy_install <span style="color:#e6db74">${</span>EASY_INSTALL_ARGS<span style="color:#e6db74">}</span> sqlalchemy
+</span></span></code></pre></div><h2 id="step-6-install-obspy-itself">Step 6: Install obspy itself<a hidden class="anchor" aria-hidden="true" href="#step-6-install-obspy-itself">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>easy_install <span style="color:#e6db74">${</span>EASY_INSTALL_ARGS<span style="color:#e6db74">}</span> obspy
+</span></span></code></pre></div><h2 id="usage">Usage<a hidden class="anchor" aria-hidden="true" href="#usage">#</a></h2>
+<p>In order to actually use the obspy libraries in code, you&rsquo;ll need to remember to include the <code>/opt/antelope/local</code> tree in your Python search path. There are a couple of ways to make this work. The best way (which ensures that nothing weird will happen with core BRTT programs) is to explicitly modify the python search path in your code itself.</p>
+<p>If you set your <code>PYTHONPATH</code> to <code>/opt/antelope/local/lib/python2.7</code>, things will probably work but you run the risk of odd behavior with core Antelope programs.</p>
+<p>Thus, it&rsquo;s recommended that each program is prefixed with a line like</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> site; <span style="color:#f92672">import</span> sys; site<span style="color:#f92672">.</span>addsitedir(<span style="color:#e6db74">&#39;/opt/antelope/local/lib/python&#39;</span> <span style="color:#f92672">+</span> sys<span style="color:#f92672">.</span>version[:<span style="color:#ae81ff">3</span>])
+</span></span></code></pre></div><p>It&rsquo;s important to use <code>site.addsitedir</code> instead of <code>sys.path.append</code> because the latter doesn&rsquo;t evaluate <code>easy_install.pth</code>, and thus Python won&rsquo;t see any of the new modules you installed.</p>
+<h2 id="in-ipython-or-as-a-standalone-script">In iPython or as a standalone script<a hidden class="anchor" aria-hidden="true" href="#in-ipython-or-as-a-standalone-script">#</a></h2>
+<p>A full pasteable blurb that should get iPython ready to use Obspy and Antelope looks like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> sys
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> site
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> signal
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>signal<span style="color:#f92672">.</span>signal(signal<span style="color:#f92672">.</span>SIGINT, signal<span style="color:#f92672">.</span>SIG_DFL)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sys<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>append(os<span style="color:#f92672">.</span>environ[<span style="color:#e6db74">&#39;ANTELOPE&#39;</span>] <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/data/python&#34;</span>)
+</span></span><span style="display:flex;"><span>site<span style="color:#f92672">.</span>addsitedir(<span style="color:#e6db74">&#39;/opt/antelope/local/lib/python&#39;</span> <span style="color:#f92672">+</span> sys<span style="color:#f92672">.</span>version[:<span style="color:#ae81ff">3</span>])
+</span></span></code></pre></div><h2 id="as-an-xpy-file">As an <code>.xpy</code> file<a hidden class="anchor" aria-hidden="true" href="#as-an-xpy-file">#</a></h2>
+<p>If you use the ANTELOPEMAKE structure to build Antelope programs, there is a file type called <code>.xpy</code> that will configure your script with a preamble similar to the iPython blurb above, <em>except it does not include the last line.</em></p>
+<p>Every <code>xpy</code> file that makes use of the <code>obspy</code> code will need the following line pre-pended to the file before any <code>obspy</code> module imports are made (note that the standard xpy header already imports <code>os</code> and <code>sys</code> for you):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>site<span style="color:#f92672">.</span>addsitedir(<span style="color:#e6db74">&#39;/opt/antelope/local/lib/python&#39;</span> <span style="color:#f92672">+</span> sys<span style="color:#f92672">.</span>version[:<span style="color:#ae81ff">3</span>])
+</span></span></code></pre></div><p>The following <code>example.xpy</code> will get &ldquo;compiled&rdquo; into a script named <code>example</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>site<span style="color:#f92672">.</span>addsitedir(<span style="color:#e6db74">&#39;/opt/antelope/local/lib/python&#39;</span> <span style="color:#f92672">+</span> sys<span style="color:#f92672">.</span>version[:<span style="color:#ae81ff">3</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> obspy.core <span style="color:#f92672">import</span> UTCDateTime
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> obspy.arclink <span style="color:#f92672">import</span> Client
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> obspy.signal <span style="color:#f92672">import</span> cornFreq2Paz, seisSim
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>client <span style="color:#f92672">=</span> Client(user<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;test@obspy.de&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>t <span style="color:#f92672">=</span> UTCDateTime(<span style="color:#e6db74">&#39;2009-08-24 00:20:03&#39;</span>)
+</span></span><span style="display:flex;"><span>st <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>getWaveform(<span style="color:#e6db74">&#39;BW&#39;</span>, <span style="color:#e6db74">&#39;RJOB&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>, <span style="color:#e6db74">&#39;EHZ&#39;</span>, t, t <span style="color:#f92672">+</span> <span style="color:#ae81ff">30</span>)
+</span></span><span style="display:flex;"><span>pas <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>getPAZ(<span style="color:#e6db74">&#39;BW&#39;</span>, <span style="color:#e6db74">&#39;RJOB&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>, <span style="color:#e6db74">&#39;EHZ&#39;</span>, t)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1Hz instrument</span>
+</span></span><span style="display:flex;"><span>one_hertz <span style="color:#f92672">=</span> cornFreq2Paz(<span style="color:#ae81ff">1.0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Correct for frequency response of the instrument</span>
+</span></span><span style="display:flex;"><span>res <span style="color:#f92672">=</span> res <span style="color:#f92672">/</span> paz[<span style="color:#e6db74">&#39;sensitivity&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot the seismograms</span>
+</span></span><span style="display:flex;"><span>sec <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(len(res)) <span style="color:#f92672">/</span> st[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>stats<span style="color:#f92672">.</span>sampling_rate
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">211</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(sec, st[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>data, <span style="color:#e6db74">&#39;k&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> (st[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>stats<span style="color:#f92672">.</span>station, t))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;STS-2&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">212</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(sec, res, <span style="color:#e6db74">&#39;k&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;Time [s]&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;1Hz CornerFrequency&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://geoffdavis.com/tags/antelope/">Antelope</a></li>
+      <li><a href="https://geoffdavis.com/tags/linux/">Linux</a></li>
+      <li><a href="https://geoffdavis.com/tags/sysadmin/">Sysadmin</a></li>
+      <li><a href="https://geoffdavis.com/tags/python/">Python</a></li>
+      <li><a href="https://geoffdavis.com/tags/seismology/">Seismology</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://geoffdavis.com/">Geoff Davis</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

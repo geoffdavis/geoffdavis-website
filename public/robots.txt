@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://geoffdavis.com/sitemap.xml
