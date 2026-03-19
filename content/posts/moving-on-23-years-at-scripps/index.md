@@ -121,7 +121,7 @@ team could follow and extend.
 ## The Constant Thread: Automation
 
 Looking back across all of these projects, the constant thread has been automation. From
-Cfengine in 2004 to Puppet to Ansible and Terraform/Terragrunt today, I've spent over two
+CFEngine in 2004 to Puppet to Ansible and Terraform/Terragrunt today, I've spent over two
 decades treating infrastructure as code — not because it was trendy, but because you can't
 manage 50+ remote sites and 1,700 data streams with a small team any other way. Every
 manual process eliminated was one fewer truck roll to a mountaintop, one fewer 3 AM page,
