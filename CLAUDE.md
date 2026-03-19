@@ -35,18 +35,19 @@ Hugo static site → Docker (Nginx) → GHCR → Kubernetes (ARM cluster).
 
 **Build:** Two-stage Dockerfile — `hugomods/hugo:exts-non-root-0.146.7` compiles the site, Nginx Alpine serves it. The `HUGO_DRAFTS` build arg controls `--buildDrafts`.
 
-**CI/CD:** Two GitHub Actions workflows in `.github/workflows/`:
+**CI/CD:** Three GitHub Actions workflows in `.github/workflows/`:
+- `lint.yaml` — triggers on pushes to `main`/`dev` and all pull requests; runs markdownlint and Hugo build check
 - `publish.yaml` — triggers on `main`, builds with `HUGO_DRAFTS=false`, tags `main-{TIMESTAMP}-{SHA}`
 - `publish-dev.yaml` — triggers on `dev`, builds with `HUGO_DRAFTS=true`, tags `dev-{TIMESTAMP}-{SHA}`
 
-Both push multi-arch images (`linux/amd64`, `linux/arm64`) to `ghcr.io/geoffdavis/geoffdavis-website`.
+Both publish workflows push multi-arch images (`linux/amd64`, `linux/arm64`) to `ghcr.io/geoffdavis/geoffdavis-website`.
 
 ## Branching and Content Promotion
 
 - Feature branches → merge into `dev` (staging, drafts included)
 - `dev` → merge into `main` (production, drafts excluded)
 
-To promote a post to production: set `draft = false` in its frontmatter, then merge `dev` into `main`. The CI build is the only gate — there are no tests or linters.
+To promote a post to production: set `draft = false` in its frontmatter, then merge `dev` into `main`. The CI lint and build checks are the only gates.
 
 ## Pre-commit Hooks
 

@@ -29,7 +29,7 @@ jobs:
           globs: content/**/*.md
 
       - name: Hugo build check
-        run: hugo --buildDrafts --quiet
+        run: hugo --quiet
 
   build-and-push:
     needs: lint
