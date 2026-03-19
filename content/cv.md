@@ -4,6 +4,6 @@ draft = false
 title = 'CV'
 +++
 
-# Geoff Davis
+## Geoff Davis
 
 Software engineer and homelab enthusiast.
