@@ -9,7 +9,30 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Set up Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.146.7'
+          extended: true
+
+      - name: markdownlint
+        uses: DavidAnson/markdownlint-cli2-action@v19
+        with:
+          config: .markdownlint.yaml
+          globs: content/**/*.md
+
+      - name: Hugo build check
+        run: hugo --quiet
+
   build-and-push:
+    needs: lint
     runs-on: ubuntu-latest
     permissions:
       contents: read
