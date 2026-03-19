@@ -36,6 +36,7 @@ Hugo static site → Docker (Nginx) → GHCR → Kubernetes (ARM cluster).
 **Build:** Two-stage Dockerfile — `hugomods/hugo:exts-non-root-0.146.7` compiles the site, Nginx Alpine serves it. The `HUGO_DRAFTS` build arg controls `--buildDrafts`.
 
 **CI/CD:** Three GitHub Actions workflows in `.github/workflows/`:
+
 - `lint.yaml` — triggers on pushes to `main`/`dev` and all pull requests; runs markdownlint and Hugo build check
 - `publish.yaml` — triggers on `main`, builds with `HUGO_DRAFTS=false`, tags `main-{TIMESTAMP}-{SHA}`
 - `publish-dev.yaml` — triggers on `dev`, builds with `HUGO_DRAFTS=true`, tags `dev-{TIMESTAMP}-{SHA}`
@@ -59,6 +60,7 @@ pre-commit install
 ```
 
 Hooks run automatically on `git commit`:
+
 - **Hugo build check** — builds with `--buildDrafts`, fails if the site doesn't compile
 - **markdownlint** — lints `content/` files (config in `.markdownlint.yaml`)
 

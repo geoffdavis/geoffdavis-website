@@ -100,7 +100,7 @@ There is no additional approval gate or manual deployment step. The GitHub Actio
 
 ### Summary
 
-```
+```text
 feature branch ──► dev (staging) ──► main (production)
                      │                     │
                      ▼                     ▼
