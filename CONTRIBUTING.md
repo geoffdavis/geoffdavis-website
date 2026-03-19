@@ -19,16 +19,7 @@ Guide for contributing to the geoffdavis.com website.
 
    You need Hugo extended edition v0.146.7 or later.
 
-3. Install pre-commit hooks:
-
-   ```sh
-   brew install pre-commit
-   pre-commit install
-   ```
-
-   This installs git hooks that run a Hugo build check and markdownlint on every commit.
-
-4. Start the dev server:
+3. Start the dev server:
 
    ```sh
    hugo server -D
