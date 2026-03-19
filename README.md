@@ -54,10 +54,10 @@ docker run -p 8080:80 geoffdavis-website
 
 ## Branching Strategy
 
-| Branch | Purpose |
-|--------|---------|
-| `main` | Production |
-| `dev` | Staging / preview |
+| Branch  | Purpose          |
+|---------|------------------|
+| `main`  | Production       |
+| `dev`   | Staging / preview |
 
 <<<<<<< HEAD
 Feature branches are merged into `dev` for preview, then into `main` for production. The `draft` frontmatter field controls visibility: posts with `draft = true` appear in dev builds but are excluded from production. See [CONTRIBUTING.md](CONTRIBUTING.md#promoting-content-to-production) for the full promotion workflow.
@@ -76,7 +76,7 @@ Images are published to `ghcr.io/geoffdavis/geoffdavis-website`.
 
 ## Project Structure
 
-```
+```text
 .
 ├── archetypes/          # Content templates
 ├── content/             # Site content (posts, pages)
