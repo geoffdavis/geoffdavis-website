@@ -1,6 +1,5 @@
 +++
 date = '2026-03-01T00:00:00-08:00'
-draft = true
 title = 'Moving On: 23 Years at Scripps Institution of Oceanography'
 description = 'Reflections on 23 years at UC San Diego Scripps Institution of Oceanography, from shipboard computing to wildfire detection infrastructure.'
 tags = ['career', 'networking', 'devops', 'infrastructure', 'scripps', 'hpwren', 'alertcalifornia']
