@@ -53,7 +53,7 @@ NFS locking for multi-reader database access. I designed a remote backup solutio
 ZFS snapshots replicated to a secondary datacenter in Seattle, and worked with our
 database and acquisition experts to build warm standby failover procedures.
 
-All of it was managed as infrastructure-as-code — first with Cfengine, then Puppet.
+All of it was managed as infrastructure-as-code — first with CFEngine, then Puppet.
 Servers were treated as disposable rebuild instances with user data on separate partitions.
 This was years before "cattle, not pets" became a buzzword.
 
@@ -63,7 +63,7 @@ Alongside the USArray work, I served as the de facto computing systems lead for 
 ROADNet project — an early experiment in data exchange across disparate networks that was
 a precursor to the Internet of Things. I inherited a sprawling collection of Solaris
 servers and Linux single-board computers suffering from severe configuration drift, and
-brought them under Cfengine management. I developed custom sensor acquisition software and
+brought them under CFEngine management. I developed custom sensor acquisition software and
 used Solaris Jumpstart and RedHat Kickstart to provision servers that shipped to partner
 organizations around the world.
 
@@ -115,7 +115,7 @@ would otherwise have been duplicated.
 I designed and deployed a switch-centric core architecture at multiple sites, negotiated
 direct layer 2 connections with major camera providers through CENIC, and implemented a
 dedicated camera exchange network for improved security and observability. I deployed
-Netbox for IPAM and DCIM, and codified network planning and provisioning policies that the
+NetBox for IPAM and DCIM, and codified network planning and provisioning policies that the
 team could follow and extend.
 
 ## The Constant Thread: Automation
