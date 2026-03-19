@@ -5,16 +5,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```sh
-# Local development with live reload and drafts visible
+# Local development with live reload
 hugo server -D
 
 # Create a new post
 hugo new posts/my-post.md
 
-# Production build (no drafts)
+# Production build
 hugo
 
-# Build with drafts (matches dev branch CI behavior)
+# Build matching dev branch CI behavior
 hugo --buildDrafts
 
 # Test the container build locally
@@ -44,8 +44,8 @@ Both publish workflows push multi-arch images (`linux/amd64`, `linux/arm64`) to 
 
 ## Branching and Content Promotion
 
-- Feature branches → merge into `dev` (staging, drafts included)
-- `dev` → merge into `main` (production, drafts excluded)
+- Feature branches → merge into `dev` (staging)
+- `dev` → merge into `main` (production)
 
 To promote a post to production: merge `dev` into `main`. The CI lint and build checks are the only gates — no `draft` flag needed.
 
