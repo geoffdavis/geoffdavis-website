@@ -29,7 +29,7 @@ git submodule update --remote themes/PaperMod
 
 Hugo static site → Docker (Nginx) → GHCR → Kubernetes (ARM cluster).
 
-**Content:** `content/posts/` for blog posts, `content/` root for pages (e.g. `cv.md`). Frontmatter uses TOML (delimited by `+++`). New posts default to `draft = true`.
+**Content:** `content/posts/` for blog posts, `content/` root for pages (e.g. `cv.md`). Frontmatter uses TOML (delimited by `+++`). Do not use `draft = true` — the branch is the gate (dev = staging, main = production).
 
 **Theme:** PaperMod is a git submodule at `themes/PaperMod/`. CI checks it out with `submodules: true`. Do not edit theme files directly.
 
@@ -47,7 +47,7 @@ Both publish workflows push multi-arch images (`linux/amd64`, `linux/arm64`) to 
 - Feature branches → merge into `dev` (staging, drafts included)
 - `dev` → merge into `main` (production, drafts excluded)
 
-To promote a post to production: set `draft = false` in its frontmatter, then merge `dev` into `main`. The CI lint and build checks are the only gates.
+To promote a post to production: merge `dev` into `main`. The CI lint and build checks are the only gates — no `draft` flag needed.
 
 ## Pre-commit Hooks
 

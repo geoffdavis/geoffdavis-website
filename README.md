@@ -41,7 +41,7 @@ Create a new post:
 hugo new posts/my-new-post.md
 ```
 
-This generates a file from the archetype template with `draft = true` set by default. Set `draft = false` when the post is ready for production.
+This generates a file from the archetype template. The branch is the gate — posts on `dev` are staging, posts on `main` are production. Do not use the `draft` frontmatter field.
 
 ## Docker
 

@@ -40,7 +40,7 @@ Guide for contributing to the geoffdavis.com website.
 
 - Blog posts go in `content/posts/`. Create new posts with `hugo new posts/my-post.md`.
 - Top-level pages go in `content/` (e.g., `content/cv.md`).
-- New posts are created as drafts by default. Set `draft = false` in the frontmatter when ready.
+- New posts do not need a `draft` flag — the branch is the gate. Posts on `dev` are staging; posts on `main` are production.
 
 ### Configuration Changes
 
@@ -92,11 +92,9 @@ Guide for contributing to the geoffdavis.com website.
 
 ## Promoting Content to Production
 
-Content moves from `dev` to `main` in two steps:
+Content moves from `dev` to `main` in one step:
 
-1. **Set `draft = false`** in the frontmatter of any posts that are ready for production. Posts with `draft = true` are included in dev builds but excluded from production builds. You can flip the draft flag before or as part of the merge to `main`.
-
-2. **Merge `dev` into `main`**:
+1. **Merge `dev` into `main`**:
 
    ```sh
    git checkout main
@@ -118,7 +116,7 @@ feature branch ──► dev (drafts included) ──► main (drafts excluded)
                dev build in GHCR          production build in GHCR
 ```
 
-The `draft` frontmatter field is the gate that controls what is visible in production. The branch merge is what triggers the build.
+The branch merge is the gate and the trigger. No `draft` frontmatter flag is needed.
 
 ## CI/CD
 
