@@ -94,7 +94,7 @@ Content moves from `dev` to `main` in one step:
    git push origin main
    ```
 
-This triggers the production CI workflow, which builds a Docker image with `HUGO_DRAFTS=false` — meaning only posts with `draft = false` appear in the final site.
+This triggers the production CI workflow, which builds a Docker image without `--buildDrafts` — all content in `main` appears in the final site.
 
 There is no additional approval gate or manual deployment step. The GitHub Actions workflow fires automatically on push to `main`, and the resulting image is published to GHCR ready for deployment.
 
