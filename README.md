@@ -25,7 +25,7 @@ git submodule update --init --recursive
 
 ## Local Development
 
-Start the Hugo development server with live reload and draft posts enabled:
+Start the Hugo development server with live reload:
 
 ```sh
 hugo server -D
@@ -52,18 +52,12 @@ docker build -t geoffdavis-website .
 docker run -p 8080:80 geoffdavis-website
 ```
 
-To include draft posts in the build:
-
-```sh
-docker build --build-arg HUGO_DRAFTS=true -t geoffdavis-website:drafts .
-```
-
 ## Branching Strategy
 
-| Branch | Purpose | Drafts Included |
-|--------|---------|-----------------|
-| `main` | Production | No |
-| `dev` | Staging / preview | Yes |
+| Branch | Purpose |
+|--------|---------|
+| `main` | Production |
+| `dev` | Staging / preview |
 
 Feature branches are merged into `dev` for preview, then into `main` for production. The branch is the gate — no `draft` frontmatter flag needed. See [CONTRIBUTING.md](CONTRIBUTING.md#promoting-content-to-production) for the full promotion workflow.
 
@@ -71,8 +65,8 @@ Feature branches are merged into `dev` for preview, then into `main` for product
 
 GitHub Actions workflows automatically build and push multi-arch Docker images (`linux/amd64`, `linux/arm64`) to GHCR on pushes to `main` and `dev`:
 
-- **`main`** pushes produce images tagged `main-{TIMESTAMP}-{SHA}` with drafts excluded.
-- **`dev`** pushes produce images tagged `dev-{TIMESTAMP}-{SHA}` with drafts included.
+- **`main`** pushes produce images tagged `main-{TIMESTAMP}-{SHA}` (production).
+- **`dev`** pushes produce images tagged `dev-{TIMESTAMP}-{SHA}` (staging).
 
 Images are published to `ghcr.io/geoffdavis/geoffdavis-website`.
 

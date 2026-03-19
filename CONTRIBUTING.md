@@ -101,17 +101,17 @@ There is no additional approval gate or manual deployment step. The GitHub Actio
 ### Summary
 
 ```
-feature branch ──► dev (drafts included) ──► main (drafts excluded)
-                     │                          │
-                     ▼                          ▼
-               dev build in GHCR          production build in GHCR
+feature branch ──► dev (staging) ──► main (production)
+                     │                     │
+                     ▼                     ▼
+               dev build in GHCR    production build in GHCR
 ```
 
 The branch merge is the gate and the trigger. No `draft` frontmatter flag is needed.
 
 ## CI/CD
 
-Pushes to `dev` and `main` trigger GitHub Actions workflows that build and push Docker images to GHCR. The `dev` branch includes draft posts; `main` does not.
+Pushes to `dev` and `main` trigger GitHub Actions workflows that build and push Docker images to GHCR. All content merged to `dev` appears in the staging build; all content merged to `main` appears in production.
 
 Check the Actions tab on GitHub to verify your build succeeded after pushing.
 
