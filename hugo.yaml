@@ -4,3 +4,12 @@ title: "Geoff Davis"
 theme: "PaperMod"
 enableRobotsTXT: true
 buildDrafts: false
+
+menu:
+  main:
+    - name: CV
+      url: /cv/
+      weight: 10
+    - name: Posts
+      url: /posts/
+      weight: 20
