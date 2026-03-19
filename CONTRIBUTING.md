@@ -79,7 +79,37 @@ Guide for contributing to the geoffdavis.com website.
    git push -u origin my-feature
    ```
 
-6. Once merged to `dev`, verify the staging build in GHCR. When ready, merge `dev` into `main` for production.
+6. Once merged to `dev`, verify the staging build in GHCR.
+
+## Promoting Content to Production
+
+Content moves from `dev` to `main` in two steps:
+
+1. **Set `draft = false`** in the frontmatter of any posts that are ready for production. Posts with `draft = true` are included in dev builds but excluded from production builds. You can flip the draft flag before or as part of the merge to `main`.
+
+2. **Merge `dev` into `main`**:
+
+   ```sh
+   git checkout main
+   git pull origin main
+   git merge dev
+   git push origin main
+   ```
+
+This triggers the production CI workflow, which builds a Docker image with `HUGO_DRAFTS=false` — meaning only posts with `draft = false` appear in the final site.
+
+There is no additional approval gate or manual deployment step. The GitHub Actions workflow fires automatically on push to `main`, and the resulting image is published to GHCR ready for deployment.
+
+### Summary
+
+```
+feature branch ──► dev (drafts included) ──► main (drafts excluded)
+                     │                          │
+                     ▼                          ▼
+               dev build in GHCR          production build in GHCR
+```
+
+The `draft` frontmatter field is the gate that controls what is visible in production. The branch merge is what triggers the build.
 
 ## CI/CD
 
