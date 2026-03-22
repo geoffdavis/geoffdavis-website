@@ -168,5 +168,38 @@ code refactoring, architecture planning, and migration strategies
 
 ## Publications
 
+- Astiz, L.; Eakins, J.A.; Martynov, V.G.; Cox, T.A.; Tytell, J.; Reyes, J.C.;
+  Newman, R.L.; Karasu, G.H.; Mulder, T.; White, M.; **Davis, G.A.**; Busby,
+  R.W.; Hafner, K.; Meyer, J.C.; Vernon, F.L. (2014). "The Array Network
+  Facility Seismic Bulletin: Products and an Unbiased View of United States
+  Seismicity." *Seismological Research Letters*, 85(3), 576–593.
+  DOI: 10.1785/0220130141
 - *Marine Technology* — SWAP network: ship-to-ship mesh networking for the
   oceanographic research fleet
+
+---
+
+## Conference Presentations
+
+### American Geophysical Union Fall Meeting (Poster Sessions)
+
+- **Davis, G.A.**; Eakins, J.A.; Reyes, J.C.; Franke, M.; Sánchez, R.F.;
+  Cortes Muñoz, P.; Busby, R.W.; Vernon, F.; Barrientos, S.E. (2014). "A High
+  Performance Virtualized Seismic Data Acquisition System." S13C-4475.
+- **Davis, G.A.**; Vernon, F. (2012). "The NSF Earthscope USArray
+  Instrumentation Network." IN31B-1502.
+- **Davis, G.A.**; Battistuz, B.; Foley, S.; Vernon, F.L.; Eakins, J.A.
+  (2009). "The Earthscope USArray Array Network Facility (ANF): Evolution of
+  Data Acquisition, Processing, and Storage Systems." IN41A-1114.
+- Eakins, J.A.; Vernon, F.L.; Astiz, L.; Martynov, V.; Mulder, T.; Cox, T.A.;
+  Newman, R.L.; **Davis, G.**; Battistutz, B. (2008). "The Earthscope USArray
+  Array Network Facility (ANF): Metadata, Network and Data Monitoring, Quality
+  Assurance as We Start to Roll."
+
+### Antelope Users Group Meeting
+
+- **Davis, G.** (2015). "Contrib Changes from the AUG Side." San Diego, CA.
+- **Davis, G.** (2013). "Infrastructure for Large Seismic Networks."
+  Papagayo, Costa Rica.
+- **Davis, G.** (2012). "Web Services at the ANF." Reno, NV.
+- **Davis, G.** (2012). "ANF Systems Architecture." Reno, NV.
