@@ -1,7 +1,7 @@
 +++
 date = '2026-03-01T00:00:00-08:00'
 title = 'Moving On: 23 Years at Scripps Institution of Oceanography'
-description = 'Reflections on 23 years at UC San Diego Scripps Institution of Oceanography, from shipboard computing to wildfire detection infrastructure.'
+description = "Reflecting on 23 years at Scripps Institution of Oceanography — the projects, the people, and what's next."
 tags = ['career', 'networking', 'devops', 'infrastructure', 'scripps', 'hpwren', 'alertcalifornia']
 
 [cover]

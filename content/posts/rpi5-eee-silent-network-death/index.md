@@ -1,7 +1,7 @@
 +++
 date = '2026-03-23T00:00:00-07:00'
 title = 'Silent Network Death on Raspberry Pi 5: Diagnosing and Fixing AutogrEEEn'
-description = 'The RPi5 BCM54213PE PHY silently enters EEE Low Power Idle without telling the macb MAC driver, causing complete network blackouts every few minutes. Here is how to confirm it, mitigate it, and fix it with a custom kernel.'
+description = "Deep-dive into Raspberry Pi 5 silent network death caused by Energy Efficient Ethernet (EEE) and a kernel fix using TSTART."
 tags = ['raspberry-pi', 'linux', 'kernel', 'networking', 'talos', 'kubernetes', 'homelab', 'longhorn']
 draft = false
 
@@ -53,7 +53,7 @@ If it shows `EEE status: enabled` or lists 1000baseT-Full in the advertised set,
 
 The RPi5 network stack spans two chips connected by PCIe. The BCM2712 SoC contains the ARM cores; the RP1 "southbridge" chip contains all the I/O including the Ethernet MAC. The PHY sits off the MAC via RGMII, and the switch connects to the PHY. This topology matters because MMIO writes from the CPU to RP1 travel over PCIe as *posted writes* — fire-and-forget transactions that the CPU doesn't wait for.
 
-```mermaid
+{{< mermaid >}}
 graph LR
     subgraph bcm2712["BCM2712 SoC"]
         cpu["ARM Cortex-A76 ×4"]
@@ -69,9 +69,9 @@ graph LR
     rc -->|"PCIe posted writes\n(buffered, CPU doesn't wait)"| mac
     mac -->|"RGMII"| phy
     phy -->|"1000BASE-T"| net
-```
+{{< /mermaid >}}
 
-```mermaid
+{{< mermaid >}}
 sequenceDiagram
     participant SW as Switch
     participant PHY as BCM54213PE PHY
@@ -94,7 +94,7 @@ sequenceDiagram
     PHY->>MAC: RGMII resumes
     MAC->>CPU: DMA drains, interrupts resume
     note over SW,CPU: Node reappears on network
-```
+{{< /mermaid >}}
 
 Standard 802.3az EEE is negotiated between link partners and the MAC controls entry/exit. AutogrEEEn is Broadcom's shortcut: the PHY decides to enter low-power idle autonomously, based on local traffic levels, without any RGMII signaling to the MAC. The MAC has no idea it happened, can't drain or refill the DMA ring, and the NIC becomes a black hole until the PHY decides to come back.
 
@@ -183,7 +183,7 @@ spec:
 
 The DaemonSet recovery cycle looks like this:
 
-```mermaid
+{{< mermaid >}}
 flowchart TD
     A([loop every 10 s]) --> B{ping gateway\n3-second timeout}
     B -->|success| C[fail_count = 0]
@@ -198,7 +198,7 @@ flowchart TD
     I --> A
     H -->|no| J["fail_count = threshold\nwill retry next cycle"]
     J --> A
-```
+{{< /mermaid >}}
 
 ## The Kernel Fix
 
@@ -263,7 +263,7 @@ set fallback="B - Talos v1.12.5"
 
 A privileged DaemonSet reads the current `grub.cfg`, determines the inactive slot, writes the new `vmlinuz`, updates `grub.cfg` to set it as default (keeping the current slot as fallback), and exits. The old slot acts as automatic rollback if the new kernel panics on boot.
 
-```mermaid
+{{< mermaid >}}
 flowchart TD
     START["Node running stock kernel\ngrub.cfg: default = Slot A"]
     KU["① kernel-update DaemonSet\nwrite patched vmlinuz → Slot B\nupdate grub.cfg: default = Slot B\nremove module.sig_enforce from Slot B cmdline"]
@@ -275,7 +275,7 @@ flowchart TD
     START --> KU --> IF --> PC
     PC --> GOOD
     PC -.->|panic at boot| FALLBACK
-```
+{{< /mermaid >}}
 
 **Critical**: use `talosctl reboot --mode powercycle`, not a standard reboot. `talosctl reboot` uses kexec by default, which chains to the new kernel without re-reading GRUB — your slot change is bypassed.
 
@@ -352,7 +352,7 @@ After a day of monitoring, hang frequency dropped slightly compared to the all-6
 
 The `macb` driver issues TSTART (transmit start) via a posted PCIe write to the RP1 NCR register. Posted writes are buffered — they can sit in the CPU write buffer and be reordered or coalesced before reaching RP1. If RP1 sees TSTART before its internal TX state is stable (e.g., it's still processing a prior NCR write), it may silently drop the TSTART command and leave TX stuck. The existing NCR post-fence (a non-posted `readl()` after the TSTART write) ensures the write eventually arrives — but it doesn't ensure RP1 is *ready* to process it when it does.
 
-```mermaid
+{{< mermaid >}}
 sequenceDiagram
     participant CPU as CPU
     participant BUF as PCIe Write Buffer
@@ -375,7 +375,7 @@ sequenceDiagram
     CPU->>BUF: posted write: NCR | TSTART
     BUF-->>RP1: TSTART arrives — RP1 ready, TX starts
     CPU->>RP1: non-posted READ: NCR (post-fence confirms delivery)
-```
+{{< /mermaid >}}
 
 **Update (2026-03-25, commit `5c3d750`):** Added patch 0005 — a TSR pre-flush — to address the TSTART stall hypothesis. The fix mirrors [rpi-6.12.y commit e45c98d](https://github.com/raspberrypi/linux/commit/e45c98decbb16e58a79c7ec6fbe4374320e814f1) from the RPi Foundation:
 

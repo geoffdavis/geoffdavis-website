@@ -3,3 +3,4 @@ MD013: false  # line length — too restrictive for blog prose
 MD033: false  # inline HTML — needed for Hugo shortcodes
 MD036: false  # emphasis as heading — italic dates/roles are valid CV formatting
 MD041: false  # first line heading — frontmatter comes first
+MD046: false  # code block style — mermaid shortcode content uses indentation
