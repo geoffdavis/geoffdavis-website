@@ -1,0 +1,71 @@
+section:
+  name: Publications
+  id: publications
+  enable: true
+  weight: 6
+  showOnNavbar: false
+
+publications:
+  - title: "The Array Network Facility Seismic Bulletin: Products and an Unbiased View of United States Seismicity"
+    publishedIn:
+      name: "Seismological Research Letters, 85(3), 576–593"
+      date: "2014"
+      url: "https://doi.org/10.1785/0220130141"
+    authors:
+      - name: "Astiz, L."
+      - name: "Eakins, J.A."
+      - name: "Martynov, V.G."
+      - name: "Cox, T.A."
+      - name: "Tytell, J."
+      - name: "Reyes, J.C."
+      - name: "Newman, R.L."
+      - name: "Karasu, G.H."
+      - name: "Mulder, T."
+      - name: "White, M."
+      - name: "Davis, G.A."
+      - name: "Busby, R.W."
+      - name: "Hafner, K."
+      - name: "Meyer, J.C."
+      - name: "Vernon, F.L."
+
+  - title: "SWAP Network: Ship-to-Ship Mesh Networking for the Oceanographic Research Fleet"
+    publishedIn:
+      name: "Marine Technology Magazine"
+      date: "2010"
+    authors:
+      - name: "Davis, G.A."
+      - name: "et al."
+
+  - title: "A High Performance Virtualized Seismic Data Acquisition System"
+    publishedIn:
+      name: "AGU Fall Meeting 2014, Poster S13C-4475"
+      date: "2014"
+    authors:
+      - name: "Davis, G.A."
+      - name: "Eakins, J.A."
+      - name: "Reyes, J.C."
+      - name: "Franke, M."
+      - name: "Sánchez, R.F."
+      - name: "Cortes Muñoz, P."
+      - name: "Busby, R.W."
+      - name: "Vernon, F."
+      - name: "Barrientos, S.E."
+
+  - title: "The NSF Earthscope USArray Instrumentation Network"
+    publishedIn:
+      name: "AGU Fall Meeting 2012, Poster IN31B-1502"
+      date: "2012"
+    authors:
+      - name: "Davis, G.A."
+      - name: "Vernon, F."
+
+  - title: "The Earthscope USArray Array Network Facility (ANF): Evolution of Data Acquisition, Processing, and Storage Systems"
+    publishedIn:
+      name: "AGU Fall Meeting 2009, Poster IN41A-1114"
+      date: "2009"
+    authors:
+      - name: "Davis, G.A."
+      - name: "Battistuz, B."
+      - name: "Foley, S."
+      - name: "Vernon, F.L."
+      - name: "Eakins, J.A."

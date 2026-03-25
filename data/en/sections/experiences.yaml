@@ -1,0 +1,85 @@
+section:
+  name: Experience
+  id: experiences
+  enable: true
+  weight: 3
+  showOnNavbar: true
+
+experiences:
+  - company:
+      name: Oceaneering International
+      url: "https://www.oceaneering.com"
+      location: Remote / San Diego, CA
+      overview: Offshore energy, ROV operations, and subsea infrastructure.
+    positions:
+      - designation: Senior DevOps Administrator
+        start: March 2026
+        responsibilities:
+          - DevOps engineering for offshore energy, ROV operations, and subsea infrastructure
+
+  - company:
+      name: Scripps Institution of Oceanography, UC San Diego
+      url: "https://scripps.ucsd.edu"
+      location: La Jolla, CA
+      overview: 23-year tenure spanning multiple large-scale research infrastructure projects.
+    positions:
+      - designation: Information Systems Analyst IV
+        start: 2018
+        end: February 2026
+        responsibilities:
+          - "**HPWREN Network Director & Lead Architect:** Operated AS46985, a multi-institutional
+            carrier-grade wireless research network spanning 50+ backbone sites across six Southern
+            California counties, serving 20+ partner organizations including Caltech, SDSU, UCSB,
+            SDG&amp;E, CalFire, and California State Parks"
+          - Engineered fault-tolerant MPLS/BGP network with multiple failover paths serving diverse
+            SLA requirements across research, education, and emergency services
+          - Designed for zero-touch operations at remote mountain-top sites via comprehensive
+            out-of-band management, eliminating routine truck rolls to helicopter-only locations
+          - Saved $70K+ through strategic infrastructure consolidation
+          - Led 24/7 on-call rotation with blameless incident response practices
+          - Leveraged AI tools (Claude/KiloCode) to refactor entire Puppet codebase in 2 weeks vs.
+            2–3 months traditionally, achieving 95% test coverage and removing 1000+ lines of
+            technical debt
+          - "**AlertCalifornia Chief Network Architect:** Designed network architecture for
+            statewide system of 1500+ wildfire detection cameras spanning 40+ infrastructure
+            providers; built redundant datacenter architecture with automated failover"
+          - Established IPSec/BGP interconnects between AWS, Azure, and on-premises infrastructure
+          - Implemented NetBox DCIM for infrastructure visibility and automated provisioning
+
+      - designation: Programmer/Analyst III
+        start: 2005
+        end: 2018
+        responsibilities:
+          - "**USArray / EarthScope Lead Systems & Storage Architect:** Managed computing and
+            storage infrastructure for NSF-funded seismic monitoring program, supporting
+            1700+ globally distributed sensors with 40 station moves/month and 99.5% data
+            return rate"
+          - Designed storage evolution maintaining zero downtime — DAS → SAN → virtualized ZFS
+            with live migrations across 50+ compute and storage nodes
+          - Optimized workload distribution reducing real-time seismic event detection latency by ~20x
+          - Built self-documenting infrastructure rebuildable from code in minutes
+          - Co-managed the antelope_contrib seismic software repository for 10+ years
+          - "**ROADNet Computing Systems Lead:** Eliminated configuration drift across global
+            sensor deployments using CFEngine; built automated provisioning pipeline"
+
+      - designation: Programmer/Analyst II
+        start: October 2002
+        end: 2005
+        responsibilities:
+          - Supported C-band satellite connectivity for the UNOLS oceanographic research fleet
+            (HiSeasNet / Shipboard Computing)
+          - Designed autonomous computing systems operating without network connectivity for
+            weeks at sea
+          - Published in Marine Technology magazine on the SWAP ship-to-ship mesh network
+
+  - company:
+      name: Rangefire Integrated Networks
+      location: Santa Barbara, CA
+      overview: ISP infrastructure management and monitoring.
+    positions:
+      - designation: Network Engineer
+        start: 1999
+        end: 2002
+        responsibilities:
+          - Managed ISP infrastructure including DDoS mitigation and incident response
+          - Developed monitoring and alerting systems for proactive issue detection

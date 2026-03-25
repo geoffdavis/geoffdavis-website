@@ -1,0 +1,47 @@
+section:
+  name: Projects
+  id: projects
+  enable: true
+  weight: 4
+  showOnNavbar: true
+
+buttons:
+  - name: All
+    filter: "all"
+  - name: Open Source
+    filter: "opensource"
+  - name: Infrastructure
+    filter: "infra"
+
+projects:
+  - name: esphome-mitsubishiheatpump
+    role: Author / Maintainer
+    timeline: "2019 - Present"
+    repo: https://github.com/geoffdavis/esphome-mitsubishiheatpump
+    summary: "ESPHome climate component for Mitsubishi heat pumps via direct serial
+      connection. 650+ GitHub stars."
+    tags: ["opensource", "iot"]
+
+  - name: antelope_contrib
+    role: Co-Maintainer
+    timeline: "2004 - 2018"
+    url: "https://github.com/antelopeusersgroup/antelope_contrib"
+    summary: "Community-contributed software repository for the Antelope seismic
+      data processing platform. 10+ years as co-maintainer."
+    tags: ["opensource", "seismology"]
+
+  - name: puppet-zfsonlinux
+    role: Author
+    timeline: "2014 - Present"
+    repo: https://github.com/geoffdavis/puppet-zfsonlinux
+    summary: "Puppet module for managing ZFS on Linux. Part of a broader collection
+      of infrastructure automation Puppet modules."
+    tags: ["opensource", "infra"]
+
+  - name: "geoffdavis.com (this site)"
+    role: Author
+    timeline: "2024 - Present"
+    repo: https://github.com/geoffdavis/geoffdavis-website
+    summary: "Personal portfolio and blog built with Hugo (Toha theme), deployed
+      to a Kubernetes ARM cluster via GitHub Actions CI/CD."
+    tags: ["opensource", "infra"]

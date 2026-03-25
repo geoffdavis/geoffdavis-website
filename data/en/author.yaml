@@ -1,0 +1,15 @@
+name: "Geoffrey A. Davis"
+nickname: "Geoff"
+greeting: "Hi, I'm"
+image: "images/author/geoff.jpeg"
+
+contactInfo:
+  email: "geoff@geoffdavis.com"
+  github: geoffdavis
+  linkedin: geoffrey-davis-b978201
+
+summary:
+  - Infrastructure Engineer
+  - Homelab Tinkerer
+  - Occasional Writer
+  - Open Source Contributor

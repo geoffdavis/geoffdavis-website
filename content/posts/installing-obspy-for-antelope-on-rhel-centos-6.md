@@ -1,6 +1,7 @@
 +++
 date = '2014-08-11T12:37:34-07:00'
 title = 'Installing Obspy for Antelope 5.4 on RHEL/CentOS 6'
+description = "Step-by-step guide for installing ObsPy seismic data processing library alongside the Antelope framework on RHEL/CentOS 6."
 tags = ['antelope', 'linux', 'sysadmin', 'python', 'seismology']
 +++
 

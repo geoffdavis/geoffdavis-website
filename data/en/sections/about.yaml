@@ -1,0 +1,35 @@
+section:
+  name: About
+  id: about
+  enable: true
+  weight: 1
+  showOnNavbar: true
+  template: sections/about.html
+
+designation: Infrastructure Engineer
+
+company:
+  name: Oceaneering International
+  url: "https://www.oceaneering.com"
+
+summary: |
+  Infrastructure engineer with 25+ years of experience building and operating
+  resilient, large-scale systems for research networks, public utilities, and
+  emergency services. Background spanning carrier-grade wireless networks,
+  petabyte-scale seismic data infrastructure, statewide wildfire detection systems,
+  and shipboard computing. Early adopter of AI-augmented DevOps workflows.
+
+socialLinks:
+  - name: Email
+    icon: "fas fa-envelope"
+    url: "geoff@geoffdavis.com"
+  - name: Github
+    icon: "fab fa-github"
+    url: "https://github.com/geoffdavis"
+  - name: LinkedIn
+    icon: "fab fa-linkedin"
+    url: "https://www.linkedin.com/in/geoffrey-davis-b978201"
+
+resourceLinks:
+  - title: "View Posts"
+    url: "/posts/"
