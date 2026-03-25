@@ -14,7 +14,7 @@ This post covers how to confirm whether you're hitting this bug, a DaemonSet-bas
 
 ## Is This Your Problem?
 
-First, confirm the kernel is alive during the hang. If you have a serial console connected (GPIO UART on the 40-pin header at 115200 baud), send SysRq `l` during a hang:
+First, confirm the kernel is alive during the hang. If you have a serial console connected (the RPi5 dedicated 3-pin debug header at 115200 baud), send SysRq `l` during a hang:
 
 ```text
 echo l > /proc/sysrq-trigger
