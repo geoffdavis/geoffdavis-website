@@ -1,0 +1,96 @@
+section:
+  name: Skills
+  id: skills
+  enable: true
+  weight: 2
+  showOnNavbar: true
+  filter: true
+
+buttons:
+  - name: All
+    filter: "all"
+  - name: Networking
+    filter: "networking"
+  - name: Automation
+    filter: "automation"
+  - name: Cloud & Containers
+    filter: "cloud"
+  - name: Storage
+    filter: "storage"
+  - name: Observability
+    filter: "observability"
+
+skills:
+  - name: BGP / OSPF / MPLS
+    summary: "Carrier-grade BGP multi-homing (AS46985), MPLS/EVPN for research and emergency
+      services networks spanning 50+ sites."
+    categories: ["networking"]
+
+  - name: Cisco / Arista / MikroTik
+    summary: "15+ years of hands-on routing and switching across vendors; deep experience
+      with Cisco IOS/NX-OS, Arista EOS, and MikroTik RouterOS."
+    categories: ["networking"]
+
+  - name: Puppet
+    summary: "15 years of infrastructure automation; refactored entire codebase to 95% test
+      coverage using AI-assisted tools."
+    categories: ["automation"]
+    url: "https://puppet.com"
+
+  - name: Ansible
+    summary: "Playbook-driven configuration management and ad-hoc infrastructure automation."
+    categories: ["automation"]
+    url: "https://ansible.com"
+
+  - name: Terraform / Terragrunt
+    summary: "Infrastructure as Code for cloud and hybrid environments; 21+ years of IaC
+      experience across multiple tools."
+    categories: ["automation", "cloud"]
+
+  - name: Python / Nornir
+    summary: "Network automation scripting; Nornir for multi-vendor concurrent device
+      configuration management."
+    categories: ["automation"]
+
+  - name: Kubernetes (Talos / Rancher)
+    summary: "Container orchestration on bare-metal ARM cluster (Talos Linux); also
+      experience with Rancher-managed clusters."
+    categories: ["cloud"]
+    url: "https://kubernetes.io"
+
+  - name: Docker
+    summary: "Multi-arch container builds (linux/amd64, linux/arm64); multi-stage
+      Dockerfiles for production deployments."
+    categories: ["cloud"]
+    url: "https://docker.com"
+
+  - name: AWS
+    summary: "Broad AWS experience including VPC, EC2, S3, Route53, and IPSec/BGP
+      interconnects with on-premises networks."
+    categories: ["cloud"]
+
+  - name: ZFS
+    summary: "Petabyte-scale ZFS storage design; live migration across 50+ nodes with zero
+      downtime; DAS → SAN → virtualized ZFS evolution."
+    categories: ["storage"]
+
+  - name: Ceph / SAN
+    summary: "Distributed storage for Kubernetes workloads and high-availability
+      infrastructure."
+    categories: ["storage"]
+
+  - name: NetBox IPAM/DCIM
+    summary: "Network source of truth for 1500+ camera infrastructure; automated
+      provisioning integration."
+    categories: ["observability"]
+    url: "https://netbox.dev"
+
+  - name: LibreNMS / Nagios
+    summary: "Network monitoring and alerting for carrier-grade wireless research
+      network operations."
+    categories: ["observability"]
+
+  - name: AI-Augmented DevOps
+    summary: "Claude, KiloCode — actively used for infrastructure code refactoring,
+      architecture planning, and migration strategies."
+    categories: ["automation"]
