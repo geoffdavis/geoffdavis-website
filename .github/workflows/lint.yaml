@@ -9,7 +9,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Set up Hugo
         uses: peaceiris/actions-hugo@v3
@@ -21,7 +21,7 @@ jobs:
         run: npm ci
 
       - name: markdownlint
-        uses: DavidAnson/markdownlint-cli2-action@v19
+        uses: DavidAnson/markdownlint-cli2-action@v22
         with:
           config: .markdownlint.yaml
           globs: content/**/*.md
