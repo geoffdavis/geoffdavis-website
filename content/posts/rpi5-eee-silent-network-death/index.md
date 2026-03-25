@@ -392,7 +392,18 @@ The TSR register read is a non-posted PCIe transaction — the CPU stalls until 
 
 Both `macb_tx_restart()` (NAPI-driven TX retry) and `macb_start_xmit()` (per-packet TX) were updated. The patch is applied in `kernel/build/patches/eee/net-macb-rp1-0005-tsr-preflush.patch` of the [geoffdavis/siderolabs-pkgs](https://github.com/geoffdavis/siderolabs-pkgs) fork.
 
-All three nodes were deployed to commit `5c3d750` on 2026-03-25 via the privileged DaemonSet method. Monitoring is ongoing — the key question is whether the TSR pre-flush eliminates the traffic-dependent hang pattern seen with `c10b497`.
+All three nodes were deployed to commit `5c3d750` on 2026-03-25 via the privileged DaemonSet method.
+
+**Early results (~1 hour of runtime):** The traffic-dependent disparity from `c10b497` is gone. With the previous kernel, `.13` (Prometheus — high sustained TX load) was hanging roughly twice as often as `.11` and `.12`. With `5c3d750`, `.12` and `.13` are now hanging at the same rate (~1 event per 20 min) regardless of load difference. That's the pattern you'd expect if the TSR pre-flush fixed the TSTART stall: a stall that fires under TX load would affect `.13` most, so equalizing the rates across load levels is a positive signal.
+
+`.11` is still hanging at ~1 per 7–8 min, which is unexpectedly high given it carries less load than `.13`. That's not yet explained. Possibilities: PHY or link partner noise specific to that port, accumulated ring state that settles over time, or a different failure mode that the TSR pre-flush doesn't address. Too early to conclude — the 1-hour sample is small.
+
+| Metric         | Stock kernel     | + patches 0001–0004+0006 | + BCM54213PE (5e57070) | + RPi backport (c10b497) | + TSR pre-flush (5c3d750, ~1 hr) |
+|----------------|------------------|--------------------------|------------------------|--------------------------|----------------------------------|
+| .11 hang rate  | ~1 per 2–3 min   | ~1 per 2–15 min          | ~1 per 3–26 min        | ~1 per 14 min            | ~1 per 7–8 min                   |
+| .12 hang rate  | ~1 per 2–3 min   | ~1 per 2–15 min          | ~1 per 3–26 min        | ~1 per 14 min            | ~1 per 20 min                    |
+| .13 hang rate  | ~1 per 2–3 min   | ~1 per 2–15 min          | ~1 per 3–26 min        | ~1 per 7 min             | ~1 per 20 min                    |
+| Outage per event | 30–40 s        | ~4 s (netwatch)          | ~4 s (netwatch)        | ~4 s (netwatch)          | ~4 s (netwatch)                  |
 
 ## Secondary Consequences: VIP Migration and etcd Churn
 
