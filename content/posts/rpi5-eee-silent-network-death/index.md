@@ -4,6 +4,11 @@ title = 'Silent Network Death on Raspberry Pi 5: Diagnosing and Fixing AutogrEEE
 description = 'The RPi5 BCM54213PE PHY silently enters EEE Low Power Idle without telling the macb MAC driver, causing complete network blackouts every few minutes. Here is how to confirm it, mitigate it, and fix it with a custom kernel.'
 tags = ['raspberry-pi', 'linux', 'kernel', 'networking', 'talos', 'kubernetes', 'homelab', 'longhorn']
 draft = false
+
+[cover]
+image = "rack-with-pis.jpeg"
+alt = "Homelab rack showing three Raspberry Pi 5 nodes, a JetKVM, a management Raspberry Pi 4, and the debug serial cable used for kernel diagnostics"
+caption = "The homelab rack: three RPi5 cluster nodes, a JetKVM, a management RPi4, and the debug serial cable"
 +++
 
 Raspberry Pi 5 nodes in a Kubernetes cluster go completely silent on the network for 30–40 seconds every 2–3 minutes. No kernel panic. No OOM. All CPUs idle. The `macb` Ethernet driver logs nothing. They just stop, then come back.
