@@ -8,6 +8,19 @@ buildDrafts: false
 params:
   ShowReadingTime: true
   ShowPostNavLinks: true
+  profileMode:
+    enabled: true
+    title: Geoff Davis
+    subtitle: Infrastructure engineer. Homelab tinkerer. Occasional writer.
+    imageUrl: /images/cp-profile-640x640.jpeg
+    imageTitle: Geoff Davis
+    imageWidth: 120
+    imageHeight: 120
+    buttons:
+      - name: Posts
+        url: /posts/
+      - name: CV
+        url: /cv/
   socialIcons:
     - name: github
       url: "https://github.com/geoffdavis"
