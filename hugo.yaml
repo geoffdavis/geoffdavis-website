@@ -5,6 +5,15 @@ theme: "PaperMod"
 enableRobotsTXT: true
 buildDrafts: false
 
+params:
+  ShowReadingTime: true
+  ShowPostNavLinks: true
+  socialIcons:
+    - name: github
+      url: "https://github.com/geoffdavis"
+    - name: linkedin
+      url: "https://www.linkedin.com/in/geoffrey-davis-b978201"
+
 menu:
   main:
     - name: CV
