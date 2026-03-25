@@ -4,6 +4,7 @@ title = 'Silent Network Death on Raspberry Pi 5: Diagnosing and Fixing AutogrEEE
 description = "Deep-dive into Raspberry Pi 5 silent network death caused by Energy Efficient Ethernet (EEE) and a kernel fix using TSTART."
 tags = ['raspberry-pi', 'linux', 'kernel', 'networking', 'talos', 'kubernetes', 'homelab', 'longhorn']
 draft = false
+hero = "rack-with-pis.jpeg"
 
 [cover]
 image = "rack-with-pis.jpeg"

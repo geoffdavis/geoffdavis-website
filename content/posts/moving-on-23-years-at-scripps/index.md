@@ -3,6 +3,7 @@ date = '2026-03-01T00:00:00-08:00'
 title = 'Moving On: 23 Years at Scripps Institution of Oceanography'
 description = "Reflecting on 23 years at Scripps Institution of Oceanography — the projects, the people, and what's next."
 tags = ['career', 'networking', 'devops', 'infrastructure', 'scripps', 'hpwren', 'alertcalifornia']
+hero = "pier-sunset.jpeg"
 
 [cover]
 image = "pier-sunset.jpeg"
