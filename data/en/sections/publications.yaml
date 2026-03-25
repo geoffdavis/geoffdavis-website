@@ -1,0 +1,36 @@
+section:
+  name: Publications
+  id: publications
+  enable: true
+  weight: 6
+  showOnNavbar: false
+
+publications:
+  - title: "The Array Network Facility Seismic Bulletin: Products and an Unbiased View of United States Seismicity"
+    authors: "Astiz, L.; Eakins, J.A.; Martynov, V.G.; Cox, T.A.; Tytell, J.; Reyes, J.C.;
+      Newman, R.L.; Karasu, G.H.; Mulder, T.; White, M.; **Davis, G.A.**; Busby, R.W.;
+      Hafner, K.; Meyer, J.C.; Vernon, F.L."
+    venue: "Seismological Research Letters, 85(3), 576–593"
+    year: 2014
+    url: "https://doi.org/10.1785/0220130141"
+
+  - title: "SWAP Network: Ship-to-Ship Mesh Networking for the Oceanographic Research Fleet"
+    authors: "Davis, G.A. et al."
+    venue: "Marine Technology Magazine"
+    year: 2010
+
+  - title: "A High Performance Virtualized Seismic Data Acquisition System"
+    authors: "Davis, G.A.; Eakins, J.A.; Reyes, J.C.; Franke, M.; Sánchez, R.F.;
+      Cortes Muñoz, P.; Busby, R.W.; Vernon, F.; Barrientos, S.E."
+    venue: "AGU Fall Meeting 2014, Poster S13C-4475"
+    year: 2014
+
+  - title: "The NSF Earthscope USArray Instrumentation Network"
+    authors: "Davis, G.A.; Vernon, F."
+    venue: "AGU Fall Meeting 2012, Poster IN31B-1502"
+    year: 2012
+
+  - title: "The Earthscope USArray Array Network Facility (ANF): Evolution of Data Acquisition, Processing, and Storage Systems"
+    authors: "Davis, G.A.; Battistuz, B.; Foley, S.; Vernon, F.L.; Eakins, J.A."
+    venue: "AGU Fall Meeting 2009, Poster IN41A-1114"
+    year: 2009
