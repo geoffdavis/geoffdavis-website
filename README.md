@@ -59,11 +59,7 @@ docker run -p 8080:80 geoffdavis-website
 | `main`  | Production       |
 | `dev`   | Staging / preview |
 
-<<<<<<< HEAD
-Feature branches are merged into `dev` for preview, then into `main` for production. The `draft` frontmatter field controls visibility: posts with `draft = true` appear in dev builds but are excluded from production. See [CONTRIBUTING.md](CONTRIBUTING.md#promoting-content-to-production) for the full promotion workflow.
-=======
-Feature branches are merged into `dev` for preview, then into `main` for production.
->>>>>>> b663601 (docs: add README and CONTRIBUTING guide)
+Feature branches are merged into `dev` for preview, then into `main` for production. The branch is the gate — no `draft` frontmatter flag needed. See [CONTRIBUTING.md](CONTRIBUTING.md#promoting-content-to-production) for the full promotion workflow.
 
 ## CI/CD
 
