@@ -1,41 +1,80 @@
 baseURL: "https://geoffdavis.com/"
 languageCode: "en-us"
 title: "Geoff Davis"
-theme: "PaperMod"
+defaultContentLanguage: en
 enableRobotsTXT: true
 buildDrafts: false
-
-params:
-  ShowReadingTime: true
-  ShowPostNavLinks: true
-  profileMode:
-    enabled: true
-    title: Geoff Davis
-    subtitle: Infrastructure engineer. Homelab tinkerer. Occasional writer.
-    imageUrl: /images/cp-profile-640x640.jpeg
-    imageTitle: Geoff Davis
-    imageWidth: 120
-    imageHeight: 120
-    buttons:
-      - name: Posts
-        url: /posts/
-      - name: CV
-        url: /cv/
-  socialIcons:
-    - name: github
-      url: "https://github.com/geoffdavis"
-    - name: linkedin
-      url: "https://www.linkedin.com/in/geoffrey-davis-b978201"
-
-menu:
-  main:
-    - name: CV
-      url: /cv/
-      weight: 10
-    - name: Posts
-      url: /posts/
-      weight: 20
+enableEmoji: true
 
 module:
   imports:
     - path: github.com/hugo-toha/toha/v4
+      mounts:
+        - source: node_modules/flag-icons/flags
+          target: static/images/flag-icons
+        - source: node_modules/@fontsource/mulish/files
+          target: static/fonts
+        - source: node_modules/katex/dist/fonts
+          target: static/fonts/katex
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
+tableOfContents:
+  endLevel: 6
+  startLevel: 2
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+params:
+  description: "Infrastructure engineer. Homelab tinkerer. Occasional writer."
+  copyright: "© 2026 Geoff Davis"
+
+  navbar:
+    align: center
+    enableSearch: true
+    searchPlaceholder: "Search posts"
+
+  defaultTheme: auto
+
+  features:
+    portfolio:
+      enable: true
+    blog:
+      enable: true
+      pageSize: 12
+    darkMode:
+      enable: true
+    rss:
+      enable: true
+
+  mermaid:
+    enable: true
+    theme: default
+
+  highlight:
+    enable: true
+    style: monokai
+
+  toc:
+    enable: true
+    auto: true
+
+  socialShare:
+    enable: false
+
+  footer:
+    enable: true
+    showNavigation: true
+    showRssIcon: true
+    showSocialLinks: true
+    showDarkModeToggle: true
+
+  mainSections:
+    - posts
