@@ -3,7 +3,7 @@ WORKDIR /src
 
 # Install npm dependencies first (layer-cached separately from source)
 COPY --chown=hugo:hugo package.json package-lock.json ./
-RUN npm install
+RUN npm ci
 
 # Copy source and build
 COPY --chown=hugo:hugo . .
