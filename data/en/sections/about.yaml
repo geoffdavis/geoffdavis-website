@@ -22,7 +22,7 @@ summary: |
 socialLinks:
   - name: Email
     icon: "fas fa-envelope"
-    url: "mailto:geoff@geoffdavis.com"
+    url: "geoff@geoffdavis.com"
   - name: Github
     icon: "fab fa-github"
     url: "https://github.com/geoffdavis"

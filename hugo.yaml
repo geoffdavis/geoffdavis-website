@@ -53,18 +53,18 @@ params:
       enable: true
     rss:
       enable: true
-
-  mermaid:
-    enable: true
-    theme: default
-
-  highlight:
-    enable: true
-    style: monokai
-
-  toc:
-    enable: true
-    auto: true
+    toc:
+      enable: true
+    flowchart:
+      enable: true
+      services:
+        mermaid:
+          theme: default
+          darkTheme: dark
+    syntaxHighlight:
+      enable: true
+      services:
+        hljs: {}
 
   socialShare:
     enable: false
