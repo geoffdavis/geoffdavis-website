@@ -5,6 +5,12 @@ description = "Step-by-step guide for installing ObsPy seismic data processing l
 tags = ['antelope', 'linux', 'sysadmin', 'python', 'seismology']
 +++
 
+{{< alert type="warning" >}}
+**This post is superseded.** As of Antelope 5.9, BRTT provides an officially supported
+command to install ObsPy directly. Use that instead of the manual procedure described here.
+See the [Antelope 5.9 release notes](https://brtt.com/wp-content/uploads/2020/09/2019_Calgary_Whatsnew.pdf) for details.
+{{< /alert >}}
+
 ## Background
 
 The [obspy framework](http://obspy.org) is a set of Python libraries for observational seismology. It includes a number of routines to retrieve and process seismic data in a variety of formats.
