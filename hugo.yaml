@@ -75,6 +75,8 @@ params:
     showRssIcon: true
     showSocialLinks: true
     showDarkModeToggle: true
+    newsletter:
+      enable: false
 
   mainSections:
     - posts
