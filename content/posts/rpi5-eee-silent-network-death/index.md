@@ -402,14 +402,26 @@ All three nodes were deployed to commit `5c3d750` on 2026-03-25 via the privileg
 
 **Early results (~1 hour of runtime):** The traffic-dependent disparity from `c10b497` is gone. With the previous kernel, `.13` (Prometheus — high sustained TX load) was hanging roughly twice as often as `.11` and `.12`. With `5c3d750`, `.12` and `.13` are now hanging at the same rate (~1 event per 20 min) regardless of load difference. That's the pattern you'd expect if the TSR pre-flush fixed the TSTART stall: a stall that fires under TX load would affect `.13` most, so equalizing the rates across load levels is a positive signal.
 
-`.11` is still hanging at ~1 per 7–8 min, which is unexpectedly high given it carries less load than `.13`. That's not yet explained. Possibilities: PHY or link partner noise specific to that port, accumulated ring state that settles over time, or a different failure mode that the TSR pre-flush doesn't address. Too early to conclude — the 1-hour sample is small.
+**Longer-term results (2026-03-28, ~5 hours of runtime after reboot):** The TSR pre-flush did not eliminate the hangs. After three days of operation and a fresh reboot cycle, the per-node hang rates tell a clear story:
 
-| Metric         | Stock kernel     | + patches 0001–0004+0006 | + BCM54213PE (5e57070) | + RPi backport (c10b497) | + TSR pre-flush (5c3d750, ~1 hr) |
-|----------------|------------------|--------------------------|------------------------|--------------------------|----------------------------------|
-| .11 hang rate  | ~1 per 2–3 min   | ~1 per 2–15 min          | ~1 per 3–26 min        | ~1 per 14 min            | ~1 per 7–8 min                   |
-| .12 hang rate  | ~1 per 2–3 min   | ~1 per 2–15 min          | ~1 per 3–26 min        | ~1 per 14 min            | ~1 per 20 min                    |
-| .13 hang rate  | ~1 per 2–3 min   | ~1 per 2–15 min          | ~1 per 3–26 min        | ~1 per 7 min             | ~1 per 20 min                    |
-| Outage per event | 30–40 s        | ~4 s (netwatch)          | ~4 s (netwatch)        | ~4 s (netwatch)          | ~4 s (netwatch)                  |
+| Node | Hangs | Window | Rate | Avg gap | Range |
+|------|-------|--------|------|---------|-------|
+| .11  | 15    | 4.7 h  | 3.2/hr | 19.6 min | 3–60 min |
+| .12  | 3     | 4.5 h  | 0.67/hr | 49.6 min | 37–62 min |
+| .13  | 12    | 5.4 h  | 2.2/hr | 26.9 min | <1–91 min |
+
+The early 1-hour sample was misleading. `.11` is now the worst performer (3.2 hangs/hr), not `.13` — ruling out a clean correlation with TX load. `.12` is dramatically better than the other two, suggesting per-port or per-PHY variation rather than a single shared root cause. Double-hangs appeared on `.13` (recovery followed by immediate re-hang within 1–3 minutes), consistent with the NIC recovering but the underlying stall condition persisting.
+
+The full progression across kernel versions:
+
+| Metric         | Stock kernel     | + patches 0001–0004+0006 | + BCM54213PE (5e57070) | + RPi backport (c10b497) | + TSR pre-flush (5c3d750) |
+|----------------|------------------|--------------------------|------------------------|--------------------------|---------------------------|
+| .11 hang rate  | ~1 per 2–3 min   | ~1 per 2–15 min          | ~1 per 3–26 min        | ~1 per 14 min            | ~1 per 19 min             |
+| .12 hang rate  | ~1 per 2–3 min   | ~1 per 2–15 min          | ~1 per 3–26 min        | ~1 per 14 min            | ~1 per 90 min             |
+| .13 hang rate  | ~1 per 2–3 min   | ~1 per 2–15 min          | ~1 per 3–26 min        | ~1 per 7 min             | ~1 per 27 min             |
+| Outage per event | 30–40 s        | ~4 s (netwatch)          | ~4 s (netwatch)        | ~4 s (netwatch)          | ~4 s (netwatch)           |
+
+**Conclusion:** The kernel patches improved things — stock was every 2–3 minutes uniformly, and the patched kernel shows longer gaps and more variance. But the `end0` interface still hangs regularly on all three nodes. The RP1 southbridge / macb / BCM54213PE chain has a fundamental reliability problem that software alone can't fully resolve. The production fix turned out to be hardware: bypassing `end0` entirely with USB 2.5GbE adapters for all cluster traffic. That's the subject of the [follow-on post](/posts/rpi5-usb-ethernet-bypass/).
 
 ## Secondary Consequences: VIP Migration and etcd Churn
 
@@ -439,7 +451,7 @@ Each hang produces a burst of etcd term increments and leader churning that last
 
 ## Paths to a Real Fix
 
-**RTL8156B USB Ethernet (immediate hardware fix).** The cleanest solution is a USB 2.5GbE adapter using the `r8152` driver. It bypasses the RP1 southbridge, the macb driver, and the BCM54213PE PHY entirely — routing traffic through the BCM2712 SoC's xHCI controller instead. There are no EEE issues with the r8152 stack on RPi5. Configure the USB interface as primary and set `ignore: true` on `end0` in the Talos machine config. (See the USB Ethernet section in the accompanying ops docs.) This doesn't fix the root cause but eliminates the symptom completely.
+**RTL8156B USB Ethernet (deployed — the actual fix).** The cleanest solution turned out to be a USB 2.5GbE adapter using the `r8152` driver. It bypasses the RP1 southbridge, the macb driver, and the BCM54213PE PHY entirely — routing traffic through the BCM2712 SoC's xHCI controller instead. There are no EEE issues with the r8152 stack on RPi5. All three nodes now run a dual-interface setup: the USB adapter (`enP2p1s0u1`) carries all cluster traffic (etcd, API server, pod networking) on VLAN 51, while `end0` is demoted to a management-only fallback on VLAN 10. The VIP floats on the USB interface. Since deploying this, there have been **zero cluster-impacting network outages** — the `end0` hangs still happen (netwatch still toggles the link every 20–90 minutes), but they only affect management access, not cluster operations. The full setup — including the RTL8156BG mode-switch problem and three-layer workaround — is described in the [follow-on post](/posts/rpi5-usb-ethernet-bypass/).
 
 **etcd election timeout tuning (partial mitigation, can do now).** Increasing the etcd election timeout prevents leader churn on short hangs. With a 5000ms election timeout and 500ms heartbeat, a 4-second link outage falls below the election threshold and etcd rides through it without churning:
 
@@ -461,7 +473,7 @@ Commit `c10b497` in [geoffdavis/siderolabs-pkgs](https://github.com/geoffdavis/s
 
 The remaining hangs appear to be TSTART stalls rather than AutogrEEEn, based on the traffic-dependent pattern observed with `c10b497`. Commit `5c3d750` adds the TSR pre-flush (patch 0005) as a targeted fix for that mechanism. Results are pending. `phy_local_rcvr_nok` still increments — that counter reflects PHY receiver errors including link-training transients from the netwatch toggle, not necessarily ongoing EEE.
 
-The honest state of things: the patches reduce hang frequency significantly (from every 2–3 min to every 3–26 min), netwatch keeps each hang to ~4 seconds, and the TSR pre-flush may further reduce frequency. But the underlying cause is not fully resolved. The RTL8156B bypass remains the most reliable path to a stable cluster right now.
+The honest state of things: the kernel patches reduce hang frequency (from every 2–3 min to every 19–90 min depending on the node), and netwatch keeps each hang to ~4 seconds. But the underlying cause in the RP1/macb/BCM54213PE chain is not fully resolved by software alone. The RTL8156B USB bypass — now deployed — is what actually made the cluster stable.
 
 ## Bonus: Repairing Corrupted Longhorn Snapshot Metadata
 
