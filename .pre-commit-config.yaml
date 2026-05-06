@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.44.0
+    rev: v0.48.0
     hooks:
       - id: markdownlint
         files: ^content/.*\.md$
@@ -8,6 +8,17 @@ repos:
 
   - repo: local
     hooks:
+      # Hugo's toha theme imports Bootstrap SCSS from node_modules/bootstrap/.
+      # On a fresh checkout, node_modules is empty -- hugo --quiet then fails
+      # silently with exit 1 and no useful error. Run `npm ci` if the bootstrap
+      # SCSS isn't present so the next hook has what it needs.
+      - id: npm-deps
+        name: Ensure npm dependencies installed (bootstrap SCSS for toha theme)
+        language: system
+        entry: bash -c 'test -f node_modules/bootstrap/scss/bootstrap.scss || npm ci'
+        pass_filenames: false
+        always_run: true
+
       - id: hugo-build
         name: Hugo build check
         language: system
