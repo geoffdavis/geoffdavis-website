@@ -6,6 +6,8 @@ tags = ['gpl', 'open-source', 'ugreen', 'nas', 'btrfs', 'kernel', 'linux', 'lice
 draft = true
 +++
 
+> **Update 2026-05-08:** I sent the source request to UGREEN customer support on 2026-05-06. UGREEN acknowledged the request on the same day and indicated they are consulting with their internal development and responsible teams. This post will remain unpublished pending their substantive response. The 30-day SFC-recommended response window runs through 2026-06-05.
+
 UGREEN's NASync line ships a NAS operating system called UGOS, based on Debian Bookworm, with proprietary additions to support their app store, sharing UI, and a Windows-style Access Control List system layered on top of POSIX ACLs.
 
 Some of those proprietary additions are not actually proprietary. They are GPL-licensed modifications to GPL-licensed upstream software. UGREEN ships the modified binaries on every NAS they sell, but does not ship the source code, does not include a written offer for the source code, and — on the unit I inspected — has even removed the upstream license file from the on-disk filesystem.
