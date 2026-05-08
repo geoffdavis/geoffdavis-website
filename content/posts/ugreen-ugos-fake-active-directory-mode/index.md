@@ -88,7 +88,7 @@ default_realm = DEDOMAIN
         ...
 ```
 
-The Samba config is in **standalone-server mode** with the local-file (`smbpasswd`) PASSDB backend. There's no `security = ads`, no `server role = member server`, no `passdb backend = winbind`. The `workgroup` is set to `CKGD`, which is some UGOS factory default that has nothing to do with FreeIPA's NetBIOS name `IPA`. SSSD wasn't configured at all — `/etc/sssd/` doesn't even exist as a directory on this system. `/etc/krb5.conf` is the upstream-default placeholder shipped by `krb5-config` four months ago, with `default_realm = DEDOMAIN` and a list of MIT/Athena realms. None of it had been touched.
+The Samba config is in **standalone-server mode** with the local-file (`smbpasswd`) PASSDB backend. There's no `security = ads`, no `server role = member server`, no `passdb backend = winbind`. The `workgroup` is set to `CKGD`, which is a value I'd configured manually on this NAS some time ago (the UGOS factory default on a fresh unit is `WORKGROUP`; I confirmed by checking my other two NASes). Either way, the workgroup is not `IPA` — which is what an AD-domain-member join against FreeIPA *should* have written, since `IPA` is the domain's NetBIOS name. The wizard preserved my pre-existing setting rather than committing the new AD-domain identity. SSSD wasn't configured at all — `/etc/sssd/` doesn't even exist as a directory on this system. `/etc/krb5.conf` is the upstream-default placeholder shipped by `krb5-config` four months ago, with `default_realm = DEDOMAIN` and a list of MIT/Athena realms. None of it had been touched.
 
 The wizard validated Kerberos, marked the join as failed, and rolled back to a configuration that doesn't reflect the join attempt at all.
 
