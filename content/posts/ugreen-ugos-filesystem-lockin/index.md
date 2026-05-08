@@ -79,18 +79,17 @@ The path the failure takes:
 sequenceDiagram
     participant src as Source NAS
     participant net as Network
-    participant rcv as Receiver Container
-
-    Note over src: UGOS host kernel<br/>ugacl_vfs.ko loaded
-    Note over rcv: Alpine container<br/>mainline btrfs userspace<br/>no ugacl_vfs hook
+    participant rcv as Receiver
+    Note over src: UGOS kernel with ugacl_vfs.ko hook
+    Note over rcv: Alpine container with mainline btrfs userspace
     Note over src,rcv: btrbk replicating snapshots cross-NAS
     src->>src: btrfs send /volume1/snapshot
-    Note over src: ugacl_vfs reads<br/>system.ugacl_self<br/>from each file
-    src->>net: btrfs stream includes<br/>system.ugacl_self entries
+    Note over src: ugacl_vfs reads system.ugacl_self from each file
+    src->>net: stream includes system.ugacl_self xattrs
     net->>rcv: stream arrives
     rcv->>rcv: btrfs receive /target
-    Note over rcv: receiver is in a different<br/>mount namespace; ugacl_vfs<br/>hook isn't intercepting writes
-    rcv-->>src: ERROR: lsetxattr<br/>system.ugacl_self: Not supported
+    Note over rcv: receiver in different mount namespace; ugacl hook not intercepting
+    rcv-->>src: ERROR lsetxattr system.ugacl_self Not supported
 {{< /mermaid >}}
 
 There's a related quirk worth noting: UGOS also uses a custom `ug.*` xattr namespace for share-level metadata (separate from the kernel-namespace `system.ugacl_self`). Running `getfattr -d -m '-'` on a UGOS share root returns entries like:
