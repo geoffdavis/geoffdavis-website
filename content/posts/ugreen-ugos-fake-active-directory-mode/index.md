@@ -109,7 +109,7 @@ sequenceDiagram
     DC-->>W: TGT issued
     W-->>U: "Domain is working normally" ✓
     W->>DT: spawn (-event=start)
-    Note over DT: domain_tool always invokes the<br/>LDAPSAM code path, regardless of<br/>which UI option was selected
+    note over DT: domain_tool always invokes the<br/>LDAPSAM code path, regardless of<br/>which UI option was selected
     DT->>DC: LDAP search<br/>(objectClass=sambaSamAccount)
     DC-->>DT: empty result<br/>(FreeIPA stores Samba data under<br/>ipantuserattrs, not sambaSamAccount)
     DT->>DT: schema verification fails
