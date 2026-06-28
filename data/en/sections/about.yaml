@@ -6,7 +6,7 @@ section:
   showOnNavbar: true
   template: sections/about.html
 
-designation: Infrastructure Engineer
+designation: Senior DevOps Administrator
 
 company:
   name: Oceaneering International
@@ -17,7 +17,10 @@ summary: |
   resilient, large-scale systems for research networks, public utilities, and
   emergency services. Background spanning carrier-grade wireless networks,
   petabyte-scale seismic data infrastructure, statewide wildfire detection systems,
-  and shipboard computing. Early adopter of AI-augmented DevOps workflows.
+  and shipboard computing. Early adopter of AI-augmented DevOps workflows. Currently
+  Senior DevOps Administrator at Oceaneering International, working across Azure cloud
+  infrastructure and wide-area networking, alongside concurrent contract work validating
+  VMware disaster-recovery and storage systems for Viasat.
 
 socialLinks:
   - name: Email

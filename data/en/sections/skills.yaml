@@ -69,6 +69,16 @@ skills:
       interconnects with on-premises networks."
     categories: ["cloud"]
 
+  - name: Azure
+    summary: "Azure Virtual WAN hub-and-spoke migrations across multiple continents;
+      Entra ID; IPSec/BGP interconnects with on-premises EIGRP/MPLS networks."
+    categories: ["cloud"]
+
+  - name: Prisma Access / ZTNA
+    summary: "Zero-trust network access (ZTNA) appliance deployment and SASE
+      integration into cloud infrastructure (Palo Alto Networks)."
+    categories: ["cloud", "networking"]
+
   - name: ZFS
     summary: "Petabyte-scale ZFS storage design; live migration across 50+ nodes with zero
       downtime; DAS → SAN → virtualized ZFS evolution."
@@ -77,6 +87,11 @@ skills:
   - name: Ceph / SAN
     summary: "Distributed storage for Kubernetes workloads and high-availability
       infrastructure."
+    categories: ["storage"]
+
+  - name: VMware Site Recovery (VLSR/SRM)
+    summary: "Disaster-recovery validation with HPE Primera storage and the HPE Storage
+      Replication Adapter (SRA); array-based replication and failover workflows."
     categories: ["storage"]
 
   - name: NetBox IPAM/DCIM

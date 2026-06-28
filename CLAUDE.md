@@ -21,8 +21,9 @@ hugo --buildDrafts
 docker build -t geoffdavis-website .
 docker run -p 8080:80 geoffdavis-website
 
-# Update PaperMod theme submodule
-git submodule update --remote themes/PaperMod
+# Update the toha theme (Hugo module) and refresh the vendored copy
+hugo mod get -u github.com/hugo-toha/toha/v4
+hugo mod vendor
 ```
 
 ## Architecture
@@ -31,7 +32,7 @@ Hugo static site → Docker (Nginx) → GHCR → Kubernetes (ARM cluster).
 
 **Content:** `content/posts/` for blog posts, `content/` root for pages (e.g. `cv.md`). Frontmatter uses TOML (delimited by `+++`). Do not use `draft = true` — the branch is the gate (dev = staging, main = production).
 
-**Theme:** PaperMod is a git submodule at `themes/PaperMod/`. CI checks it out with `submodules: true`. Do not edit theme files directly.
+**Theme:** [hugo-toha/toha](https://github.com/hugo-toha/toha) v4, consumed as a Hugo module (declared in `go.mod`, pinned in `hugo.yaml` under `module.imports`) and vendored into `_vendor/`. No git submodule — CI builds straight from the vendored copy. Do not edit theme files directly.
 
 **Build:** Two-stage Dockerfile — `hugomods/hugo:exts-non-root-0.146.7` compiles the site, Nginx Alpine serves it. The `HUGO_DRAFTS` build arg controls `--buildDrafts`.
 

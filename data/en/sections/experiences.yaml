@@ -15,7 +15,36 @@ experiences:
       - designation: Senior DevOps Administrator
         start: March 2026
         responsibilities:
-          - DevOps engineering for offshore energy, ROV operations, and subsea infrastructure
+          - "**Azure Virtual WAN migration:** Partnering with the communications &amp;
+            networking team on a multi-continent migration from a classic VNet spoke
+            design to an Azure Virtual WAN hub-and-spoke architecture"
+          - Daily engineering across Azure cloud services, Microsoft Entra ID, and
+            Azure Virtual WAN
+          - Diagnosing routing loops spanning on-premise EIGRP networks, vendor-provided
+            MPLS VDCs, and Azure Virtual WAN, applying BGP and wide-area networking expertise
+          - "**Prisma Access ZTNA proof of concept:** Driving the ZTNA appliance deployment
+            within the cloud infrastructure; serving as liaison between the Cloud Center of
+            Excellence team, the Communications team, and Palo Alto Networks"
+
+  - company:
+      name: Eliassen Group (Contract) — Viasat
+      url: "https://www.eliassen.com"
+      location: Remote / San Diego, CA
+      overview: Disaster-recovery validation for VMware Live Site Recovery on HPE Primera storage.
+    positions:
+      - designation: Storage & Virtualization Engineer
+        start: December 2025
+        responsibilities:
+          - "**VMware Live Site Recovery (VLSR/SRM) validation:** Validated the disaster-recovery
+            workflow against new HPE Primera storage, replacing a legacy 3PAR-backed SRM deployment"
+          - Stood up an isolated simulation environment to exercise the DR workflow before any
+            production change; validated SRM/VLSR package compatibility and the HPE Storage
+            Replication Adapter (SRA) for the Primera arrays
+          - Modernized legacy Perl recovery hooks driving non-VMware nodes (network gear, backup
+            servers) into runtime-portable standalone applications on VMware Photon OS and Windows Server
+          - Coordinated across multiple Viasat teams — including their overseas networking group —
+            and with vendors Broadcom (VMware) and HPE
+          - Authored method-of-procedure (MOP) documentation for execution in a controlled-access environment
 
   - company:
       name: Scripps Institution of Oceanography, UC San Diego
