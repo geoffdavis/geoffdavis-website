@@ -15,11 +15,27 @@ experiences:
       - designation: Senior DevOps Administrator
         start: March 2026
         responsibilities:
+          - "**Azure landing-zone delivery (Cloud Center of Excellence):** Building and
+            operating standardized Azure infrastructure through Terraform and a GitOps
+            pipeline — subscription vending, per-environment subscription isolation, and
+            management-group / policy placement"
+          - "**GitOps / IssueOps:** Delivering project and module repositories via GitHub
+            Actions IssueOps — pull-request plan/apply with multi-environment promotion and
+            required production-review gates; secretless Azure authentication via GitHub
+            OIDC federated credentials"
+          - "**Reusable Terraform modules:** Authoring and semver-versioning reusable
+            modules published to a private Artifactory registry, integration-tested via
+            automatic apply/destroy on every pull request"
+          - "**Entra ID &amp; RBAC as code:** Managing Entra ID group and role-assignment
+            patterns with IaC security scanning (checkov / terrascan / tflint), drift
+            detection, and Copilot-assisted review across Commercial Azure, Azure GCC High,
+            AWS commercial, and AWS GovCloud environments, with most delivery in Azure
+            Commercial and Azure GCC High"
+          - "**Agent tooling:** Building an internal Model Context Protocol (MCP) server
+            integrating the enterprise IT service-desk system with Copilot/agent workflows"
           - "**Azure Virtual WAN migration:** Partnering with the communications &amp;
             networking team on a multi-continent migration from a classic VNet spoke
             design to an Azure Virtual WAN hub-and-spoke architecture"
-          - Daily engineering across Azure cloud services, Microsoft Entra ID, and
-            Azure Virtual WAN
           - Diagnosing routing loops spanning on-premise EIGRP networks, vendor-provided
             MPLS VDCs, and Azure Virtual WAN, applying BGP and wide-area networking expertise
           - "**Prisma Access ZTNA proof of concept:** Driving the ZTNA appliance deployment

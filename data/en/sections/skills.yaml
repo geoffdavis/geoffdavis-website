@@ -42,10 +42,27 @@ skills:
     categories: ["automation"]
     url: "https://ansible.com"
 
-  - name: Terraform / Terragrunt
-    summary: "Infrastructure as Code for cloud and hybrid environments; 21+ years of IaC
-      experience across multiple tools."
+  - name: Terraform / OpenTofu
+    summary: "Reusable modules and project repos delivered via GitHub Actions IssueOps
+      (plan/apply with multi-environment promotion and production gates); modules
+      published to a private Artifactory registry. 21+ years of IaC overall
+      (Cfengine → Puppet → Terraform/OpenTofu)."
     categories: ["automation", "cloud"]
+
+  - name: JFrog Artifactory
+    summary: "Private Terraform module registry with OIDC-authenticated publishing
+      from CI pipelines."
+    categories: ["automation", "cloud"]
+
+  - name: GitHub Actions / GitOps
+    summary: "IssueOps-driven Terraform delivery; reusable/caller workflow architecture,
+      OIDC authentication, branch-deploy, and drift detection."
+    categories: ["automation"]
+
+  - name: NixOS / Nix flakes
+    summary: "Declarative, reproducible multi-host configuration (NixOS, nix-darwin,
+      home-manager) as reusable flake modules across macOS and Linux."
+    categories: ["automation"]
 
   - name: Python / Nornir
     summary: "Network automation scripting; Nornir for multi-vendor concurrent device
@@ -70,8 +87,11 @@ skills:
     categories: ["cloud"]
 
   - name: Azure
-    summary: "Azure Virtual WAN hub-and-spoke migrations across multiple continents;
-      Entra ID; IPSec/BGP interconnects with on-premises EIGRP/MPLS networks."
+    summary: "Landing-zone delivery — subscription vending, management-group / policy
+      placement, secretless GitHub Actions OIDC auth, and Entra ID group &amp; RBAC
+      patterns. Plus Virtual WAN hub-and-spoke migration and IPSec/BGP interconnects with
+      on-premises EIGRP/MPLS. Commercial Azure, Azure GCC High, AWS commercial, and AWS
+      GovCloud, with most day-to-day delivery in Azure Commercial and Azure GCC High."
     categories: ["cloud"]
 
   - name: Prisma Access / ZTNA
@@ -106,6 +126,7 @@ skills:
     categories: ["observability"]
 
   - name: AI-Augmented DevOps
-    summary: "Claude, KiloCode — actively used for infrastructure code refactoring,
-      architecture planning, and migration strategies."
+    summary: "Claude, KiloCode, and Copilot for code refactoring, architecture planning,
+      and migrations. Building Model Context Protocol (MCP) servers exposing tools to AI
+      agents — including a public OmniFocus extension."
     categories: ["automation"]
