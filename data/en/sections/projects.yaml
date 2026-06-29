@@ -19,8 +19,16 @@ projects:
     timeline: "2019 - Present"
     repo: https://github.com/geoffdavis/esphome-mitsubishiheatpump
     summary: "ESPHome climate component for Mitsubishi heat pumps via direct serial
-      connection. 650+ GitHub stars."
+      connection. 680+ GitHub stars."
     tags: ["opensource", "iot"]
+
+  - name: omnifocus-claude-extension
+    role: Author
+    timeline: "2025 - Present"
+    repo: https://github.com/geoffdavis/omnifocus-claude-extension
+    summary: "Claude Desktop extension (Model Context Protocol) for OmniFocus GTD task
+      management. 10+ GitHub stars."
+    tags: ["opensource"]
 
   - name: antelope_contrib
     role: Co-Maintainer
@@ -44,4 +52,12 @@ projects:
     repo: https://github.com/geoffdavis/geoffdavis-website
     summary: "Personal portfolio and blog built with Hugo (Toha theme), deployed
       to a Kubernetes ARM cluster via GitHub Actions CI/CD."
+    tags: ["opensource", "infra"]
+
+  - name: nix-common
+    role: Author
+    timeline: "2025 - Present"
+    repo: https://github.com/geoffdavis/nix-common
+    summary: "Declarative, reproducible multi-host configuration (NixOS, nix-darwin,
+      home-manager) as reusable flake modules across macOS and Linux."
     tags: ["opensource", "infra"]
