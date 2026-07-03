@@ -66,6 +66,9 @@ jobs:
           GHCR_USER: ${{ github.actor }}
           GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # 0700 dir / 0600 file — the credential must not be readable by
+          # anything else on the shared runner host.
+          umask 077
           mkdir -p "$RUNNER_TEMP/docker"
           AUTH=$(printf '%s:%s' "$GHCR_USER" "$GHCR_TOKEN" | base64 | tr -d '\n')
           printf '{"auths":{"%s":{"auth":"%s"}}}\n' "$REGISTRY" "$AUTH" \
