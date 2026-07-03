@@ -99,6 +99,8 @@ Why are there two tallocs in one process? Because of a build flag. In nixpkgs, [
 
 ```nix
 ++ optionals (!enableLDAP && stdenv.hostPlatform.isLinux) [
+  # Quoted verbatim from nixpkgs; the missing comma between
+  # !pyldb-util and !talloc is upstream's own — samba's waf tolerates it.
   "--bundled-libraries=!ldb,!pyldb-util!talloc,!pytalloc-util,!tevent,!tdb,!pytdb"
 ]
 ```
@@ -246,10 +248,14 @@ The `-P` is the whole trick. Normally you'd never want a password-derived servic
 **Fact 3: the machine password in secrets.tdb.** Feed samba that same password:
 
 ```bash
-echo -n 'the-password-you-just-set' | net changesecretpw -f -i
+# -i reads the password from stdin. Feed it from a 0600 file rather than
+# an `echo` pipe — a pipe still exposes the secret to shell history and
+# `ps`, and this whole recipe ultimately runs in a systemd activation
+# script where no human is present to type it.
+net changesecretpw -f -i < /run/secrets/cifs-machine-pw
 ```
 
-`net changesecretpw` exists for exactly this scenario — the manpage warns you off it unless the machine password is *"already stored"* in the directory, which is precisely what `ipa-getkeytab -P` just did. The `-f` is mandatory; `-i` reads from stdin (omit it to be prompted).
+`net changesecretpw` exists for exactly this scenario — the manpage warns you off it unless the machine password is *"already stored"* in the directory, which is precisely what `ipa-getkeytab -P` just did. The `-f` is mandatory; `-i` reads the password from stdin (omit it, at an interactive shell, to be prompted instead — but never pass it on the command line).
 
 Point samba at the keytab and stop it from ever trying to rotate a password against the DC that isn't there:
 
@@ -462,7 +468,7 @@ ipa service-add cifs/fileserver.ipa.example.com
 net setdomainsid S-1-5-21-1234567890-234567891-345678912
 ipa-getkeytab -s ipa1.ipa.example.com -p cifs/fileserver.ipa.example.com \
   -k /var/lib/samba/samba.keytab -P
-echo -n 'the-password-you-just-set' | net changesecretpw -f -i
+net changesecretpw -f -i < /run/secrets/cifs-machine-pw   # never the password on argv
 ```
 
 ## Error-message index
