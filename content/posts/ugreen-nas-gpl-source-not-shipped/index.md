@@ -3,10 +3,12 @@ date = '2026-05-06T16:00:00-07:00'
 title = 'UGREEN NAS Ships GPL-Licensed Btrfs Patches Without Source'
 description = "UGOS modifies btrfs-progs and adds two GPL kernel modules to implement Windows-style ACLs, but ships none of the source code and provides no §3(b) written offer. Here is the on-disk evidence and how to file your own GPL source request."
 tags = ['gpl', 'open-source', 'ugreen', 'nas', 'btrfs', 'kernel', 'linux', 'licensing']
-draft = true
+draft = false
 +++
 
 > **Update 2026-05-08:** I sent the source request to UGREEN customer support on 2026-05-06. UGREEN acknowledged the request on the same day and indicated they are consulting with their internal development and responsible teams. This post will remain unpublished pending their substantive response. The 30-day SFC-recommended response window runs through 2026-06-05.
+>
+> **Update 2026-07-03:** UGREEN has since published UGOS Pro's GPL sources at [github.com/ugreen-opensource](https://github.com/ugreen-opensource). I went through the release module by module — the forked `btrfs-progs`, both ugacl kernel modules, and the patched Samba are all there, and the kernel tree even ships the OEM LED and fan drivers the community had been reverse-engineering — along with what the timeline actually shows and what's *still* missing. The full verification is a follow-up post: [UGREEN Published Their GPL Sources — Here's What's Actually In Them]({{< relref "ugreen-gpl-sources-verified" >}}).
 
 UGREEN's NASync line ships a NAS operating system called UGOS, based on Debian Bookworm, with proprietary additions to support their app store, sharing UI, and a Windows-style Access Control List system layered on top of POSIX ACLs.
 
