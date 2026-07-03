@@ -14,7 +14,7 @@ hugo new posts/my-post.md
 # Production build
 hugo
 
-# Build matching dev branch CI behavior
+# Build matching the staging image (drafts rendered)
 hugo --buildDrafts
 
 # Test the container build locally
@@ -30,7 +30,7 @@ hugo mod vendor
 
 Hugo static site → Docker (Nginx) → GHCR → Kubernetes (ARM cluster).
 
-**Content:** `content/posts/` for blog posts, `content/` root for pages (e.g. `cv.md`). Frontmatter uses TOML (delimited by `+++`). Do not use `draft = true` — the branch is the gate (dev = staging, main = production).
+**Content:** `content/posts/` for blog posts, `content/` root for pages (e.g. `cv.md`). Frontmatter uses TOML (delimited by `+++`). **`draft = true` is the production gate**: main builds BOTH images — staging renders drafts, production hides them. Publish a post by flipping its draft flag to false (or removing it).
 
 **Theme:** [hugo-toha/toha](https://github.com/hugo-toha/toha) v4, consumed as a Hugo module (declared in `go.mod`, pinned in `hugo.yaml` under `module.imports`) and vendored into `_vendor/`. No git submodule — CI builds straight from the vendored copy. Do not edit theme files directly.
 
@@ -39,17 +39,16 @@ Hugo static site → Docker (Nginx) → GHCR → Kubernetes (ARM cluster).
 **CI/CD:** Three GitHub Actions workflows in `.github/workflows/`:
 
 - `lint.yaml` — triggers on pushes to `main`/`dev` and all pull requests; runs markdownlint and Hugo build check
-- `publish.yaml` — triggers on `main`, builds with `HUGO_DRAFTS=false`, tags `main-{TIMESTAMP}-{SHA}`
-- `publish-dev.yaml` — triggers on `dev`, builds with `HUGO_DRAFTS=true`, tags `dev-{TIMESTAMP}-{SHA}`
+- `publish.yaml` — triggers on `main`, builds with `HUGO_DRAFTS=false` (production), tags `main-{TIMESTAMP}-{SHA}`
+- `publish-dev.yaml` — ALSO triggers on `main`, builds with `HUGO_DRAFTS=true` (staging/draft preview), tags `dev-{TIMESTAMP}-{SHA}` (prefix kept for cluster image-automation compatibility)
 
 Both publish workflows push multi-arch images (`linux/amd64`, `linux/arm64`) to `ghcr.io/geoffdavis/geoffdavis-website`.
 
 ## Branching and Content Promotion
 
-- Feature branches → merge into `dev` (staging)
-- `dev` → merge into `main` (production)
-
-To promote a post to production: merge `dev` into `main`. The CI lint and build checks are the only gates — no `draft` flag needed.
+- Feature branches → PR → `main` (single branch; the old `dev` staging branch is retired)
+- New posts land on main with `draft = true` → visible on staging only
+- To promote a post to production: flip `draft = false` (or remove the flag) in a follow-up PR
 
 ## Pre-commit Hooks
 

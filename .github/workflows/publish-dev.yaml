@@ -1,8 +1,12 @@
-name: Publish (dev)
+# Staging image: built FROM MAIN with drafts rendered. The draft flag in
+# post frontmatter is the production gate; this image (tag prefix dev-,
+# kept for cluster image-automation compatibility) lets staged drafts be
+# previewed at the staging deployment.
+name: Publish (staging, drafts rendered)
 
 on:
   push:
-    branches: [dev]
+    branches: [main]
 
 env:
   REGISTRY: ghcr.io
