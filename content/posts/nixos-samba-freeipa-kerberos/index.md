@@ -485,4 +485,12 @@ Because this post exists to be found:
 | `session setup failed: NT_STATUS_NTLM_BLOCKED` | Step 6 — working as intended; get a ticket (`kinit`) instead |
 | macOS prompts for a password on a Kerberos share | Step 7 — mount by the exact `cifs/` SPN FQDN, never IP/shortname/`.local` |
 
-None of this required patching samba, forking sssd, or running `ipa-adtrust-install` against the realm. A stock NixOS module set, one `runCommand` derivation, one bind mount, and three imperative commands that a real `ipa-client-samba` port could eventually absorb. If you build that port, or if any of the failure modes above manifest differently on your samba version, I'd like to hear about it.
+None of this required patching samba, forking sssd, or running `ipa-adtrust-install` against the realm. A stock NixOS module set, one `runCommand` derivation, one bind mount, and three imperative commands.
+
+## Toward a reusable module
+
+That last sentence is the tell: the *mechanism* here — the plain-samba assertion, the `security = domain` default, the `idmap_sss` graft, and the no-DC join dance — has no host-specific content. It's boilerplate, identical for anyone joining a NixOS box to an IPA realm as a Samba member; only the *policy* on top (which shares exist, their `fruit`/Time Machine options, the ACL scheme) is site-specific.
+
+So I'm factoring my own deployment into two layers, with the mechanism half written as a self-contained module parameterized by `{ realm, cifsSPN, keytabPath, idmapRange }` — a work in progress I'm growing on my own file server before I trust it to abstraction. I'm deliberately *not* publishing it as a general module yet: it's proven against exactly one realm, and a "general-purpose" module extracted from a sample size of one is how you bake in accidental assumptions. It needs a second consumer first.
+
+The endgame I'd actually like to see isn't a personal module at all — it's upstream. NixOS already ships `security.ipa` for enrollment; the gap this post fills is the Samba-member glue, and two of the failure modes above are really upstream footguns (the silent `security = user` default, and the fact that the `idmap_sss` graft is necessary at all). A `services.samba` domain-member mode — or even just an assertion and a documented example — would save the next person this entire post. If you're interested in building that port, or if any of the failure modes manifest differently on your samba version, I'd like to hear about it.
