@@ -3,7 +3,7 @@ date = '2026-07-03T12:00:00-07:00'
 title = "UGREEN Published Their GPL Sources — Here's What's Actually In Them"
 description = "Two months ago I documented four GPL-licensed components that UGOS ships without source code and sent UGREEN a formal source request. The source is now public at github.com/ugreen-opensource: the forked btrfs-progs, both ugacl kernel modules, and the patched Samba are all there, and the kernel tree even ships the OEM LED and fan drivers the community had been reverse-engineering. This post verifies what's in the release, what the timeline actually shows, and what's still missing — the patched rsync, the kernel half of the per-user quota system, and the libugacl userspace library."
 tags = ['gpl', 'open-source', 'ugreen', 'nas', 'btrfs', 'kernel', 'linux', 'licensing', 'samba']
-draft = true
+draft = false
 +++
 
 In early May I documented four GPL-licensed components that UGREEN's UGOS ships in modified binary form without corresponding source: a forked `btrfs-progs`, two UGREEN-authored GPL kernel modules (`ugacl_vfs.ko` and `ug_posix_acl.ko`), a patched Samba 4.17.12, and a userspace ACL library (`libugacl.so`) linked into that Samba. I sent UGREEN a formal source request on 2026-05-06, citing GPL-2.0 §3(b) and GPL-3+ §6. They acknowledged it the same day.
@@ -14,7 +14,7 @@ The short version: this is a real source release, not a compliance fig leaf. Thr
 
 Up front, as always: I am a paying UGREEN customer. I bought three NASync DXP units at full retail to run as a three-site replication mesh. The previous post was written as a customer who wanted the source, not a scalp. This one is written as a customer who mostly got it.
 
-**TL;DR** — scorecard against the original post's four findings:
+**TL;DR** — scorecard against [the original post]({{< relref "ugreen-nas-gpl-source-not-shipped" >}})'s four findings:
 
 | Component (original finding) | Status | Where |
 | --- | --- | --- |

@@ -3,7 +3,7 @@ date = '2026-05-06T16:00:00-07:00'
 title = 'UGREEN NAS Ships GPL-Licensed Btrfs Patches Without Source'
 description = "UGOS modifies btrfs-progs and adds two GPL kernel modules to implement Windows-style ACLs, but ships none of the source code and provides no §3(b) written offer. Here is the on-disk evidence and how to file your own GPL source request."
 tags = ['gpl', 'open-source', 'ugreen', 'nas', 'btrfs', 'kernel', 'linux', 'licensing']
-draft = true
+draft = false
 +++
 
 > **Update 2026-05-08:** I sent the source request to UGREEN customer support on 2026-05-06. UGREEN acknowledged the request on the same day and indicated they are consulting with their internal development and responsible teams. This post will remain unpublished pending their substantive response. The 30-day SFC-recommended response window runs through 2026-06-05.
