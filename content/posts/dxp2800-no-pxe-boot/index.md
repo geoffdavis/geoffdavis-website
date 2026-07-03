@@ -3,7 +3,7 @@ date = '2026-07-02T20:00:00-07:00'
 title = 'Your UGREEN DXP2800 Cannot PXE Boot'
 description = "The UGREEN NASync DXP2800's AMI firmware ships without a UEFI PXE boot agent for its Intel I226-V NICs. Network Stack enabled, IPv4 PXE Support enabled, Fast Boot disabled, Network first in the boot order — and the firmware never sends a single DHCP packet. Nothing in BIOS setup fixes it. Here's the evidence, the hidden BIOS key (Ctrl+F12), and what to use instead."
 tags = ['ugreen', 'nas', 'pxe', 'netboot', 'uefi', 'bios', 'firmware', 'homelab', 'jetkvm', 'nixos']
-draft = true
+draft = false
 +++
 
 If you're trying to network-boot a UGREEN NASync DXP2800 — to install a third-party OS, run a rescue image, or wire it into an existing PXE/netboot.xyz setup — stop adjusting your DHCP server. It's not your DHCP server. The DXP2800's firmware ships **without a UEFI PXE boot agent for its network controllers**. Every PXE-related toggle in BIOS setup is present and settable, and none of them do anything. The machine cannot PXE boot, full stop, and nothing in firmware setup will change that.

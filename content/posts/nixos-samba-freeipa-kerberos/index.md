@@ -3,7 +3,7 @@ date = '2026-07-03T11:30:00-07:00'
 title = 'Kerberos-Only Samba as a FreeIPA Domain Member on NixOS'
 description = "A recipe for running a NixOS file server as a FreeIPA domain member with all SMB authentication over Kerberos and NTLM disabled — including the failure modes you'll hit on the way: the pkgs.samba4Full talloc panic when winbindd loads idmap_sss, the NT_STATUS_BAD_TOKEN_TYPE you get from NixOS's default security = user, grafting sssd's idmap module onto samba's baked-in MODULESDIR with BindReadOnlyPaths, and the net setdomainsid / ipa-getkeytab -P / net changesecretpw dance that makes a domain member work with no NETLOGON and no ipa-adtrust-install. macOS mounts and Time Machine sparsebundles included."
 tags = ['nixos', 'samba', 'freeipa', 'kerberos', 'sssd', 'winbind', 'macos', 'time-machine', 'linux', 'sysadmin']
-draft = true
+draft = false
 +++
 
 I wanted a NixOS file server that behaves like a proper FreeIPA domain member: IPA users and groups own the files, every SMB session authenticates with Kerberos, NTLM is dead, macOS clients mount shares without password prompts, and Time Machine works. No Active Directory, no `ipa-adtrust-install`, no forked Samba packages.
