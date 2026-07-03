@@ -3,7 +3,7 @@ date = '2026-07-03T12:00:00-07:00'
 title = 'TrueNAS Replication to Stock OpenZFS: acltype=nfsv4, Foreign Snapshots, and the syncoid Handover'
 description = "Firsthand test results for anyone planning a TrueNAS-to-NixOS (or any stock-OpenZFS) migration: TrueNAS's native replication (zettarepl) pushes cleanly into stock OpenZFS 2.4.2 with zero warnings, including datasets with acltype=nfsv4 — because NFSv4 ACLs travel as object-level metadata in the send stream, not as an enforced property. And syncoid can take over a zettarepl-created snapshot chain mid-flight, because it matches snapshots by GUID, not name. Plus the three gotchas that will bite you if you don't plan for them: sanoid never prunes foreign-named snapshots, syncoid silently falls back to a full re-send when the target is missing, and sanoid's recursive=yes is not atomic."
 tags = ['truenas', 'zfs', 'openzfs', 'nixos', 'replication', 'zettarepl', 'syncoid', 'sanoid', 'nfsv4-acl', 'homelab', 'nas', 'migration']
-draft = true
+draft = false
 +++
 
 If you're planning to migrate a TrueNAS box to NixOS — or to any distro running stock OpenZFS — the posts that exist (like [Bas Nijholt's excellent TrueNAS-to-NixOS writeup](https://www.nijho.lt/post/truenas-to-nixos/)) mostly cover the migration of the box itself: recreating shares, apps, and pool imports. What I couldn't find written down anywhere is what happens to **replication** during the awkward middle period — when part of your fleet is still TrueNAS and part of it isn't, and your snapshot chains have to survive not just a heterogeneous fleet but an eventual swap of the replication tooling itself.
