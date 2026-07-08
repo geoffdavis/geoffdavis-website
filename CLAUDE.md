@@ -28,7 +28,7 @@ hugo mod vendor
 
 ## Architecture
 
-Hugo static site → Docker (Nginx) → GHCR → container app on the NAS fleet (x86 TrueNAS hosts; the former ARM Kubernetes cluster deployment is retired).
+Hugo static site → Docker (Nginx) → GHCR → Kubernetes (ARM pi-talos cluster, via Flux image automation). A cutover to serving from the NAS fleet is planned but has not happened (see issue #19); until it does, images MUST include `linux/arm64`.
 
 **Content:** `content/posts/` for blog posts, `content/` root for pages (e.g. `cv.md`). Frontmatter uses TOML (delimited by `+++`). **`draft = true` is the production gate**: main builds BOTH images — staging renders drafts, production hides them. Publish a post by flipping its draft flag to false (or removing it).
 
@@ -40,9 +40,9 @@ Hugo static site → Docker (Nginx) → GHCR → container app on the NAS fleet 
 
 - `lint.yaml` — triggers on pushes to `main` and all pull requests; runs markdownlint and Hugo build check (GitHub-hosted)
 - `publish.yaml` — triggers on `main`, builds with `HUGO_DRAFTS=false` (production), tags `main-{TIMESTAMP}-{SHA}`
-- `publish-dev.yaml` — ALSO triggers on `main`, builds with `HUGO_DRAFTS=true` (staging/draft preview), tags `dev-{TIMESTAMP}-{SHA}` (prefix kept for image-automation compatibility)
+- `publish-dev.yaml` — ALSO triggers on `main`, builds with `HUGO_DRAFTS=true` (staging/draft preview), tags `dev-{TIMESTAMP}-{SHA}` (prefix kept for cluster image-automation compatibility)
 
-Both publish workflows build `linux/amd64`-only images and push to `ghcr.io/geoffdavis/geoffdavis-website`. Their `build-and-push` jobs run on the NAS fleet's self-hosted runners (`[self-hosted, x86_64-linux]`) and build via `buildctl` against a rootless buildkitd sidecar (`BUILDKIT_HOST` is preset in the runner environment — no docker CLI on the runners). SECURITY: this is a public repo — never point a PR-triggered job at the self-hosted runners; `lint` jobs stay on `ubuntu-latest`.
+Both publish workflows push multi-arch images (`linux/amd64`, `linux/arm64`) to `ghcr.io/geoffdavis/geoffdavis-website` from GitHub-hosted runners. SECURITY: this is a public repo — if builds ever move back to the NAS self-hosted runners, only push-to-main jobs may run there; PR-triggered jobs must never leave GitHub-hosted runners.
 
 ## Branching and Content Promotion
 
