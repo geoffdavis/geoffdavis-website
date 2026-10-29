@@ -3,7 +3,7 @@ date = '2026-10-28T00:00:00-07:00'
 title = 'Leaving Talos for NixOS and k3s on a Raspberry Pi 5 Cluster'
 description = "Why my three-node Raspberry Pi 5 Kubernetes cluster moved off Talos Linux to NixOS and k3s: the kernel that had both fixes I needed, a cluster that now bootstraps itself from k3s's manifests directory, and the traps along the way, from a floating serial pin that halts U-Boot to a DHCP option that quietly rerouted traffic."
 tags = ['raspberry-pi', 'nixos', 'k3s', 'talos', 'kubernetes', 'linux', 'homelab', 'flux', 'cilium']
-draft = true
+draft = false
 hero = "hero.svg"
 
 [cover]
