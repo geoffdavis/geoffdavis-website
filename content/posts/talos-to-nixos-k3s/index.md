@@ -106,6 +106,10 @@ Chart versions are pinned by hash. Upgrading Cilium or flux-operator means bumpi
 
 That screen has no authentication, since anyone at the KVM can see it and type on it. So k9s never gets the k3s admin kubeconfig. It runs as an unprivileged system user with `--readonly`, using a dedicated `console-readonly` ServiceAccount. That account gets the built-in `view` role plus the cluster-scoped reads k9s needs (nodes, PVs, CRDs, storage classes, metrics), and nothing else: no Secrets, no `exec`, no writes. It can read pod logs, which is the reason to have a console at all. k3s applies the RBAC from the same manifests directory as the rest of the bootstrap, so the console works before Flux has reconciled anything. A root oneshot mints a 24-hour token for the account and a timer renews it every six hours. The kubeconfig points at the token file, which client-go re-reads, so k9s never needs a restart to pick up a new token.
 
+![k9s in read-only mode listing the cluster's pods across all namespaces on the three talos-pi5 nodes: Cilium, kube-vip, Flux, cert-manager, the nix-builder pods and the monitoring stack, all Running](k9s-pods.jpeg)
+
+*The read-only k9s view, a few hours after the cutover. The `[R]` next to the context marks read-only mode. This capture came from my laptop, using a read-only kubeconfig and the same pod view the consoles show.*
+
 **Deleted.** The talhelper config, the RTL8156 mode-switch code, the netwatch DaemonSet, the kernel-update and initramfs-fix DaemonSets, and five Taskfile tasks that k3s now does itself. Git history keeps them.
 
 ## The migration, in order
