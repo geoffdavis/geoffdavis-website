@@ -122,6 +122,28 @@ The cluster had to stay up during the migration, since it still serves websites 
 4. **Rebuild the other two** as k3s servers joining the third. Then Cilium, kube-vip and Flux, and the dongles came out.
 5. **Clean up** the repo, rewrite the docs, port NUT and lldpd.
 
+{{< mermaid >}}
+flowchart LR
+    a["Talos\netcd 3/3\n(fault tolerant)"]
+    b["Talos etcd 2/2\nno fault tolerance\n+ k3s on pi5-03\n(single node, soaking)"]
+    c["k3s etcd 3/3\npi5-01/02 join pi5-03\nCilium · kube-vip · Flux"]
+    d["Talos deleted\ndongles out\nNUT + lldpd ported"]
+    a -->|"drain + reset pi5-03"| b
+    b -->|"rebuild 01/02, cutover"| c
+    c -->|"cleanup"| d
+
+    classDef talos fill:#7a2e2e,stroke:#ff8a8a,color:#ffffff
+    classDef risk fill:#9a5b12,stroke:#ffc46b,color:#ffffff
+    classDef k3s fill:#2f7d4f,stroke:#8cff9e,color:#ffffff
+    classDef done fill:#1f4f8f,stroke:#7eb6ff,color:#ffffff
+    class a talos
+    class b risk
+    class c k3s
+    class d done
+{{< /mermaid >}}
+
+The amber box is the window that made me careful. Until the cutover, losing either remaining Talos node would have taken the cluster down.
+
 The websites returned 200, certificates reissued, and the Cloudflare tunnel reconnected.
 
 ## What went well
@@ -164,11 +186,65 @@ k3s labels control-plane nodes `node-role.kubernetes.io/control-plane=true`. Tal
 
 On Talos the cluster had grown up gradually, so ordering problems never showed. On a fresh cluster, the root Kustomization held `OnePasswordItem` objects whose CRD the root itself installs. The first dry-run failed and nothing was created. The root now holds only Flux Kustomizations, and anything needing a child-installed CRD lives in its own Kustomization with `dependsOn`.
 
+{{< mermaid >}}
+flowchart TB
+    subgraph before["Before: deadlock on a fresh cluster"]
+        direction LR
+        r1["root Kustomization"] --> op1["onepassword\n(installs the OnePasswordItem CRD)"]
+        r1 --> i1["OnePasswordItem objects"]
+        i1 -.->|"dry-run: CRD not found\nwhole root fails"| r1
+    end
+    before ~~~ after
+    subgraph after["After: root holds only Kustomizations"]
+        direction LR
+        r2["root Kustomization"] --> op2["onepassword"]
+        r2 --> fc["flux-config\ndependsOn: onepassword"]
+        r2 --> mc["monitoring-config\ndependsOn: infrastructure"]
+        op2 -.->|"CRD ready"| fc
+    end
+
+    classDef root fill:#1f4f8f,stroke:#7eb6ff,color:#ffffff
+    classDef child fill:#9a5b12,stroke:#ffc46b,color:#ffffff
+    classDef bad fill:#7a2e2e,stroke:#ff8a8a,color:#ffffff
+    classDef good fill:#2f7d4f,stroke:#8cff9e,color:#ffffff
+    class r1,r2 root
+    class op1,op2 child
+    class i1 bad
+    class fc,mc good
+    style before fill:#7a2e2e22,stroke:#ff8a8a,stroke-dasharray:4 4,color:#ff8a8a
+    style after fill:#2f7d4f22,stroke:#8cff9e,stroke-dasharray:4 4,color:#8cff9e
+{{< /mermaid >}}
+
 The same thing happened with monitoring. The VictoriaMetrics operator started before the ServiceMonitor CRDs existed, converted nothing, and vmagent scraped only itself for hours. My "cluster feed is dark" alert didn't fire, because vmagent's self-scrape kept the `up` series present. I fixed the ordering and the alert.
 
 ### A DHCP option rerouted traffic
 
 After the cutover, the Hydra builder pods on the cluster couldn't reach the NAS. The management VLAN's DHCP lists the NAS as an NTP server, and systemd-networkd's default `RoutesToNTP=yes` installs a host route to the NTP server through the interface that learned it. So every connection to the NAS left through the management VLAN with the wrong source address, and the NAS firewall, which only accepts builder traffic from the cluster addresses, dropped it. One line fixed it: `RoutesToNTP = false`.
+
+{{< mermaid >}}
+flowchart TB
+    subgraph want["Intended"]
+        direction LR
+        p1["builder pod\n(hostNetwork)"] -->|"cluster VLAN\nsource: node's cluster address"| fw1["NAS firewall"]
+        fw1 -->|"accepted"| h1["Hydra on the NAS"]
+    end
+    want ~~~ got
+    subgraph got["After the cutover"]
+        direction LR
+        p2["builder pod\n(hostNetwork)"] -->|"host route to the\n'NTP server' wins"| r2["management VLAN\nsource: node's mgmt address"]
+        r2 --> fw2["NAS firewall"]
+        fw2 -->|"dropped"| x2["timeout"]
+    end
+
+    classDef ok fill:#2f7d4f,stroke:#8cff9e,color:#ffffff
+    classDef bad fill:#7a2e2e,stroke:#ff8a8a,color:#ffffff
+    classDef neutral fill:#1f4f8f,stroke:#7eb6ff,color:#ffffff
+    class p1,p2,fw1,fw2 neutral
+    class h1 ok
+    class r2,x2 bad
+    style want fill:#2f7d4f22,stroke:#8cff9e,stroke-dasharray:4 4,color:#8cff9e
+    style got fill:#7a2e2e22,stroke:#ff8a8a,stroke-dasharray:4 4,color:#ff8a8a
+{{< /mermaid >}}
 
 ### Smaller ones
 
